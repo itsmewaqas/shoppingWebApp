@@ -1,0 +1,76 @@
+ import productList from '../sharedComponents/ProductList';
+
+
+  // data filter
+  const filterProductList = productList.filter(x => x.productType == 'future');
+  console.log('get future product', filterProductList);
+
+
+  // data get randomly
+  const finalData = filterProductList.sort(() => Math.random() - Math.random()).slice(0, 4);
+  console.log('finalData', finalData);
+
+
+//normal data map
+{productList?.map((item, index) => (
+ <li key={index.toString()}>
+    <img src={item.productImg} alt="" />
+    <h3>{item.productTitle}
+    <span>{item.productPrice}</span></h3>
+    <p>{item.productDescription}</p>
+ </li>
+))} 
+
+
+//map data show only 4 item
+{productList.map(function (item, index) {
+ return (index < 4) ?
+    <li key={index.toString()}>
+        <img src={item.productImg} alt="" />
+        <h3>{item.productTitle}
+        <span>{item.productPrice}</span></h3>
+        <p>{item.productDescription}</p>
+    </li>
+ : null
+})} 
+
+
+//data map after filter and random
+{finalData?.map((item, index) => (
+    <li key={index.toString()}>
+        <img src={item.productImg} alt="" />
+        <h3>{item.productTitle}
+        <span>{item.productPrice}</span></h3>
+        <p>{item.productDescription}</p>
+    </li>
+))}
+
+
+
+ let content = [{
+    'id': '1',
+    'score': '10'
+  }, {
+    'id': '2',
+    'score': '20'
+  }, {
+    'id': '3',
+    'score': '35'
+  }];
+  
+  let sum = content.reduce(function(prev, current) {
+    return prev + +current.score
+  }, 0);
+  console.log(sum)
+
+
+
+
+
+
+
+  https://devpress.csdn.net/react/62f421987e668234661880c7.html
+  https://medium.com/@ayabellazreg/make-a-simple-shopping-cart-app-using-react-redux-part-3-32b182e02cc9
+  https://github.com/AyaBellazreg/React-Shopping-Cart/blob/master/Shopping-Cart/src/components/reducers/cartReducer.jsa
+  https://stackup.hashnode.dev/implement-state-management-using-react-redux-in-a-shopping-cart
+  https://dev.to/aneeqakhan/building-shopping-cart-actions-and-reducers-with-redux-in5
