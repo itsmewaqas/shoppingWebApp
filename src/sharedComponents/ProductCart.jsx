@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import productList from '../sharedComponents/ProductList';
 import { connect, useSelector, useDispatch } from 'react-redux';
+import { itemIncrement, itemDecrement } from '../redux/Actions/index';
 
 function ProductCart(props) {
 
@@ -8,6 +9,20 @@ function ProductCart(props) {
   const data = useSelector((state) => {
     return state
   });
+
+  const addExistingItem = (item) => {
+    console.log('call addExistingItem', item);
+    dispatch(itemIncrement(
+      item
+    ))
+  }
+
+  const removeExistingItem = (item) => {
+    console.log('call removeExistingItem', item);
+    dispatch(itemDecrement(
+      item
+    ))
+  }
 
   useEffect(() => {
   }, [])
@@ -21,6 +36,13 @@ function ProductCart(props) {
             <h3>{item.productTitle}<span>${item.productPrice}</span></h3>
             <p>{item.productDescription}</p>
             {/* {props.visibilityCtrl && <div></div>} */}
+            {data.addtocart.cardData.filter(x => x.id == item.id).map(em => (
+              <div className='qtyCtrl'>
+                <button className='miniBtn' onClick={() => addExistingItem(item)}>+</button>
+                <p> Qty: {em.quantity}</p>
+                <button className='miniBtn' onClick={() => removeExistingItem(item)}>-</button>
+              </div>
+            ))}
             <button
               disabled={data.addtocart.cardData.some((x) => (x.id == item.id))}
               onClick={() => props.addToCart(item)}>Order a delivery
@@ -29,7 +51,7 @@ function ProductCart(props) {
           </li>
         ))}
       </ul>
-    </div>
+    </div >
   );
 }
 

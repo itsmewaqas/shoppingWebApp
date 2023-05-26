@@ -352,10 +352,10 @@ ul.productList li button{
   border-radius: 16px;
 }
 ul.productList li button:disabled {
-  background-color: #999;
+  /* background-color: #999;
   color: #555;
-  cursor: not-allowed;
-  /* display: none; */
+  cursor: not-allowed; */
+  display: none;
 }
 ul.productList li button img{
   width: 24px;
@@ -365,6 +365,21 @@ ul.productList li button img{
   vertical-align: middle;
   position: relative;
   top: -2px;
+}
+.qtyCtrl{
+  list-style: none;
+  display: grid;
+  grid-template-columns: 50px 90px 50px;
+  flex-direction: row;
+  justify-content: center;
+}
+.miniBtn{
+  width: 30px !important;
+  font-size: 16px !important;
+  float: left !important;
+  text-align: center !important;
+  padding: 5px 0px !important;
+  margin: 15px 0px 15px 15px !important;
 }
 .testimonialsBlock{
   background-color: #fbdabb;

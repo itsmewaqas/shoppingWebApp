@@ -168,7 +168,7 @@ function Checkout(props) {
                 <tbody>
                   {data.addtocart.cardData.length >= 0 ?
                     data.addtocart.cardData?.map((pItem, index) => (
-                      <tr key={index.toString()}>
+                      <tr key={index.toString()}> 
                         <td>
                           <button onClick={() => addExistingItem(pItem)}>+</button>
                           <button onClick={() => removeExistingItem(pItem)}>-</button>
