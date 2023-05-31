@@ -733,7 +733,7 @@ ul.testimonialsList li p{
   border: none;
   height: 44px;
   border-radius: 10px;
-  margin: -100px 0px 0px;
+  margin: 15px 0px;
   cursor: pointer;
 }
 .error {
@@ -820,6 +820,238 @@ ul.testimonialsList li p{
     font-family: 'LexendDeca-Regular'!important;
     border-radius: 16px!important;
 }
+.reservationsBlock{
+  background-color: #495e57;
+  display: block;
+  padding: 15px 0px;
+}
+.reservationsBlock h3{
+  color: #c3a510;
+}
+.reservationsFormBlock{
+  padding: 15px 0px;
+  display: grid;
+  grid-template-columns: 400px 400px;
+  flex-direction: row;
+  justify-content: space-evenly;
+  clear: both;
+}
+.venueSelect{
+  color: #fff;
+  font-size: 14px;
+  font-family: 'LexendDeca-Regular';
+}
+.venueSelect input[type="radio"] {
+  margin-left: 50px;
+  margin-bottom: 30px;
+  margin-top: 15px;
+}
+.customDrop{
+   width: 100%;
+   border-radius:10px;
+   margin:15px 0px 15px 0px;
+   float: left;
+   background-color: #f8f8f8;
+   position: relative;
+}
+.customDrop button{
+  display: block;
+  background-color: #edefee;
+  border-radius: 10px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-family: 'LexendDeca-Regular';
+  border: none;
+  color: #495e57;
+  cursor: pointer;
+  font-size: 14px;
+  width: 100%;
+  text-align: left;
+  z-index: 5;
+}
+.customDrop button dd{
+  margin: 0px;
+  display: inline;
+  position: relative;
+  top: 3px;
+}
+.customDrop button .leftImg{
+  float: left;
+  position: relative;
+  margin-right: 10px;
+}
+.customDrop button .rightiImg{
+  float: right;
+  position: relative;
+  top: 8px;
+}
+.customDrop ul{
+  margin: -7px 0px 0px;
+  padding: 15px 0px 0px; 
+  border-radius: 0px 0px 10px 10px;
+  list-style: none;
+  display: block;
+  background-color: #edefee;
+  overflow: auto;
+  width: 100%;
+  z-index: 3;
+  position: absolute;
+}
+.customDrop ul li{
+  margin: 0px;
+  padding: 0px;
+  text-align: left;
+  display: block;
+  border-bottom:#6c7472 solid 1px ;
+}
+.customDrop ul li a{
+  padding: 15px;
+  box-sizing: border-box;
+  font-family: 'LexendDeca-Regular';
+  font-size: 14px;
+  line-height: 18px;
+  display: block;
+  color: #495e57;
+  cursor: pointer;
+}
+.customDataStyle{
+  background-color: #edefee;
+  color: #495e57;
+  border: none;
+  font-family: 'LexendDeca-Regular';
+  padding: 16px;
+  border-radius: 10px;
+  width: 92%;
+  margin:15px 0px 15px 0px;
+  font-size: 14px;
+}
+input[type="date" i] {
+  font-size: 16px;
+}
+.reservationsForm{
+  margin: 0px 0px 15px;
+}
+.reservationsForm label{
+  display: block;
+  font-size: 14px;
+  padding: 5px 0px 15px;
+  font-family: 'LexendDeca-Regular';
+  color: #fff;
+} 
+.reservationsForm input[type=text] {
+  width: 100%;
+  height: 44px;
+  color: #000;
+  border: #ccc solid 1px;
+  background-color: #edefee;
+  border-radius: 10px;
+  padding: 0px 10px;
+  box-sizing: border-box;
+}
+.reservationsForm textarea {
+  width: 100%;
+  color: #000;
+  border: #ccc solid 1px;
+  background-color: #edefee;
+  border-radius: 16px;
+  padding: 0px 10px;
+  box-sizing: border-box;
+}
+.fetchInfo{
+  padding: 30px 0px 0px;
+}
+.fetchInfo p{
+  padding: 10px 0px;
+  color: #fff;
+  font-family: 'LexendDeca-Regular';
+  font-size: 12px;
+  text-align: left;
+  width: 50%;
+  float: left;
+}
+.fetchInfo p:first-child{
+  font-size: 16px;
+  text-align: left;
+  width: 100%;
+}
+.fetchInfo p img{
+  vertical-align: middle;
+  margin-right: 15px;
+}
+
+
+
+
+
+
+
+
+
+/* #year-options {
+  display: flex;
+  gap: 10px;
+  margin: 10px;
+}
+.car-image {
+  width: 200px;
+  height: 180px;
+}
+#car-list {
+  display: grid;
+  gap: 20px;
+  min-height: 480px;
+  grid-template-columns: repeat(3, 1fr);
+}
+.car-item {
+  display: flex;
+  height: 200px;
+  flex-direction: column;
+  background-color: #fafafa;
+  border: 1px solid black;
+  padding: 10px;
+  gap: 5px;
+}
+.filter-option,
+.active-option {
+  padding: 10px 20px;
+  min-width: 50px;
+  border-radius: 2rem;
+}
+.brand-filter {
+  display: flex;
+  margin: 15px;
+}
+#brand-input {
+  width: 80px;
+  margin: 0 10px;
+  height: 30px;
+}
+.filter-option:hover,
+.active-option {
+  background-color: #48b393;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  transition: all 0.1s;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
