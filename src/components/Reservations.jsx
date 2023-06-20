@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import CustomDrop from '../sharedComponents/CustomDrop';
+import { useLocation } from "react-router-dom";
 
 function Reservations(props) {
+
+
+  const location = useLocation();
+  const data = location.state;
+  console.log(data);
 
   const [seating, Setseating] = useState('');
   const [reservedDate, SetreservedDate] = useState('');
@@ -239,6 +245,7 @@ function Reservations(props) {
   }
 
   useEffect(() => {
+    // console.log('get res...',props.state);
   }, [])
 
   return (

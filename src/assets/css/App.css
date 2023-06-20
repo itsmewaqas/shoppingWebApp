@@ -986,11 +986,80 @@ input[type="date" i] {
   margin-right: 0px !important;
 }
 
+ul.restaurantsList{
+   list-style: none;
+   margin: 15px 0px;
+   padding: 0px;
+   list-style: none;
+   display: grid;
+   grid-template-columns: 275px  275px  275px 275px;
+   flex-direction: row;
+   justify-content: space-between;
+}
+ul.restaurantsList li{
+  margin: 15px 0px;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0px 0px 5px #d3d3d3;
+  border-radius: 10px;
+}
+ul.restaurantsList li img{
+  margin: 0px auto;
+  width: 100%;
+  display: block;
+}
+ul.restaurantsList li p{
+   font-size: 16px;
+   line-height: 20px;
+   color: #18181c;
+   font-family: 'LexendDeca-Regular';
+}
+ul.restaurantsList li p span{
+  font-size: 14px;
+   line-height: 18px;
+   color: #18181c;
+   display: block;
+   padding-top: 10px;
+}
+ul.restaurantsList li button{
+  display: block;
+  width: 100%;
+  border: none;
+  margin: 15px auto 0px;
+  background-color: #f3cd14;
+  color: #000;
+  font-size: 14px;
+  line-height: 18px;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+}
 
-
-
-
-
+ul.tablist{
+  grid-template-columns: 150px 150px 150px 150px 150px;
+  flex-direction: row;
+  display: grid;
+  justify-content: space-between;
+}
+ul.tablist li{
+  list-style: none;
+  text-align: center;
+}
+ul.tablist li a{
+  padding: 5px;
+  display: block;
+  margin: 5px 0px;
+  cursor: pointer;
+}
+.tabClick{
+  background-color: #212529;
+  color: #fff;
+}
+.tabActive{
+  background-color: #c3a510;
+  color: #000;
+}
 
 /* #year-options {
   display: flex;
