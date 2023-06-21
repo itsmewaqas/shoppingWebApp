@@ -65,8 +65,28 @@
 
 
 
+simple seach logic
+ const [datalist, Setdatalist] = useState(restaurantsList);
+  const [search, Setsearch] = useState('');
 
+  <div>
+  <label>Search By Category:</label>
+  <input type='text' placeholder='Search By Category' onChange={(e) => Setsearch(e.target.value)} />
+  </div>
 
+  <ul className='productList'>
+  {datalist.filter((item) => {
+  return search.toLowerCase() === '' ? item : item.category.toLowerCase().includes(search);
+  }).map((em, index) => (
+  <li key={index.toString()}>
+    <img src={em.restaurantPic} alt="" />
+    <p>{em.name}</p>
+    <p>{em.location}</p>
+    <p>{em.category}</p>
+  </li>
+  ))}
+  </ul>
+/////////////////////////////////////////////
 
 
   https://devpress.csdn.net/react/62f421987e668234661880c7.html

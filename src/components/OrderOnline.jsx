@@ -92,34 +92,35 @@ function OrderOnline(props) {
 
   const [chooseCategory, SetchooseCategory] = useState('All');
   const [datalist, Setdatalist] = useState(restaurantsList);
- 
+  const [search, Setsearch] = useState('');
+
+  const getCategory = ['All', ...new Set(restaurantsList.map(x => x.category))];
+  console.log('getCategory', getCategory);
+
   const selectedCategory = (chooseCategory) => {
     SetchooseCategory(chooseCategory);
+    if (chooseCategory == "All") {
+      Setdatalist(restaurantsList);
+      return;
+    }
+    const filteredData = restaurantsList.filter((x) => {
+      return x.category == chooseCategory;
+    })
+    Setdatalist(filteredData);
   }
 
-  const getCategory = ['All', ...new Set(restaurantsList.map(q => q.category))];
-  console.log('getCategory', getCategory);
-  
-
-
-  // const setFilterData = (chooseCategory) => {
-  //   if (chooseCategory !== 'All') {
-  //     Setdatalist([...restaurantsList.filter(e => e.category === chooseCategory)]);
-  //   }
-  //   else {
-  //     Setdatalist(restaurantsList)
-  //   }
-  //   SetchooseCategory(chooseCategory);
-  // }
-
-
-
-
-
-
-
-
-
+  const searchItems = (searchValue) => {
+    Setsearch(searchValue)
+    if (search !== '') {
+      const filteredData = restaurantsList.filter((item) => {
+        return Object.values(item).join('').toLowerCase().includes(search.toLowerCase())
+      })
+      Setdatalist(filteredData)
+    }
+    else {
+      Setdatalist(restaurantsList)
+    }
+  }
 
   useEffect(() => {
   }, [])
@@ -130,6 +131,10 @@ function OrderOnline(props) {
         <h3>Order Online</h3>
       </div>
       <div className='container'>
+        <div>
+          <label>Search:</label>
+          <input placeholder='Search' onChange={(e) => searchItems(e.target.value)} />
+        </div>
         <ul className='tablist'>
           {getCategory.map((item, index) => {
             return (<li key={index.toString()}>
@@ -138,7 +143,6 @@ function OrderOnline(props) {
             </li>)
           })}
         </ul>
-
         <ul className='productList'>
           {datalist.map((em, index) => (
             <li key={index.toString()}>
@@ -149,10 +153,14 @@ function OrderOnline(props) {
             </li>
           ))}
         </ul>
-
       </div>
     </div>
   );
 }
 
 export default OrderOnline;
+
+
+
+// https://codingstatus.com/portfolio-gallery-with-filtering-in-react/
+// https://www.freecodecamp.org/news/build-a-search-filter-using-react-and-react-hooks/
