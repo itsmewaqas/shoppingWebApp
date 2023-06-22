@@ -6,11 +6,7 @@ import {
 
 function Login() {
 
-
   let navigate = useNavigate();
-
-  const [sportList, setSportList] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState();
 
   var restaurantsList = [
     {
@@ -99,47 +95,45 @@ function Login() {
     },
   ]
 
-  function handleCategoryChange(event) {
-    setSelectedCategory(event.target.value);
-  }
+  const [datalist, Setdatalist] = useState(restaurantsList);
 
-  function getFilteredList() {
-    if (!selectedCategory) {
-      return sportList;
+  function selectCategory(event) {
+    if (event.target.value == "All") {
+      Setdatalist(restaurantsList);
     }
-    return sportList.filter((item) => item.category === selectedCategory);
+    else {
+      const filteredData = restaurantsList.filter((x) => {
+        return x.category == event.target.value;
+      })
+      Setdatalist(filteredData);
+    }
   }
 
-  var filteredList = useMemo(getFilteredList, [selectedCategory, sportList]);
-
+  const getCategory = ['All', ...new Set(restaurantsList.map(x => x.category))];
+  console.log('getCategory', getCategory);
 
   const goToReserved = (elm) => {
     navigate('/Reservations', { state: elm });
   }
 
   useEffect(() => {
-    setSportList(restaurantsList);
   }, [])
 
   return (
     <div>
       <div className='container'>
         <h3>Login</h3>
-
         <div>
-          <select
-            name="category-list"
-            id="category-list"
-            onChange={handleCategoryChange}>
-            <option value="">All</option>
-            <option value="Cafe">Cafe</option>
-            <option value="Fastfood">Fast Food</option>
-            <option value="Casualdining">Casual Dining</option>
-            <option value="Steakhouse">Steak House</option>
+          <select onChange={selectCategory}>
+            {getCategory.map((item, index) => {
+              return (
+                <option key={index.toString()} value={item}>{item}</option>
+              )
+            })}
           </select>
         </div>
         <ul className="restaurantsList clearfix">
-          {filteredList.map((elm, index) => (
+          {datalist.map((elm, index) => (
             <li key={index.toString()}>
               <img src={elm.restaurantPic} alt="" />
               <p>{elm.name} <span>{elm.location}</span></p>
