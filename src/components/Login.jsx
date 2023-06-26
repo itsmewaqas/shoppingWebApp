@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 
 function Login() {
-
+ 
   let navigate = useNavigate();
 
   var restaurantsList = [

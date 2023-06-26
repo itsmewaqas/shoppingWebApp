@@ -1035,30 +1035,165 @@ ul.restaurantsList li button{
   padding: 10px;
   box-sizing: border-box;
 }
-
-ul.tablist{
-  grid-template-columns: 150px 150px 150px 150px 150px;
-  flex-direction: row;
-  display: grid;
-  justify-content: space-between;
+.reservationFilterBlock{
+  float: left;
+  width: 270px;
+  padding: 15px 0px;
 }
-ul.tablist li{
+.reservationFilterBlock ul{
+ display: block;
+ list-style: none;
+ margin: 0px;
+ padding: 5px 30px 0px 0px;
+}
+.reservationFilterBlock ul li{
   list-style: none;
   text-align: center;
 }
-ul.tablist li a{
-  padding: 5px;
+.reservationFilterBlock ul li a{
+  padding: 10px;
   display: block;
+  text-align: left;
   margin: 5px 0px;
+  font-size: 12px;
+  box-sizing: border-box;
+  font-family: 'LexendDeca-Light';
+  border-radius: 16px;
   cursor: pointer;
 }
 .tabClick{
-  background-color: #212529;
-  color: #fff;
+  background-color: #cecece;
+  color: #000;
 }
 .tabActive{
-  background-color: #c3a510;
+  background-color: #f5d849;
   color: #000;
+}
+.reservationFilterBlock label{
+  color: #000;
+  display: block;
+  font-size: 12px;
+  line-height: 14px;
+  font-family: 'LexendDeca-Regular';
+  padding: 0px 0px 10px;
+  box-sizing: border-box;
+}
+.reservationFilterBlock select {
+  display: block;
+  border: #ccc solid 1px;
+  font-family: 'LexendDeca-Regular';
+  width: 90%;
+  padding: 5px;
+  font-size: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.reservationFilterBlock input {
+  display: block;
+  border: #ccc solid 1px;
+  font-family: 'LexendDeca-Regular';
+  width: 85%;
+  padding: 5px;
+  font-size: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.reservationListBlock{
+  float: left;
+  width: 900px;
+  padding: 15px 0px;
+}
+.reservationListBlock ul{
+  margin: 0px;
+  padding: 0px 0px 30px;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 200px 200px 200px 200px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.reservationListBlock ul li{
+  padding: 5px;
+  margin: 0px 0px 30px;
+  box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0px 0px 5px #c5c5c5;
+  position: relative;
+  min-height: 370px;
+}
+.reservationListBlock ul li img{
+  margin: 0px auto;
+  display: block;
+  width: 100%;
+  border-radius: 16px;
+}
+.reservationListBlock ul li h1{
+  color: #000;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  padding: 15px 5px 5px;
+  box-sizing: border-box;
+}
+.reservationListBlock ul li h1 span{
+  color: #666;
+  font-size: 14px;
+  line-height: 18px;
+  display: block;
+  padding-top: 5px;
+}
+.reservationListBlock ul li h1 span img{
+  vertical-align: middle;
+  width:16px;
+  height: 16px;
+  margin-right: 5px;
+  display: inline-block;
+}
+.reservationListBlock ul li p{
+  color: #000;
+  font-size: 11px;
+  line-height: 13px;
+  padding: 5px 5px;
+  box-sizing: border-box;
+}
+.reservationListBlock ul li p label{
+  color: #000;
+  display: block;
+  font-size: 11px;
+  line-height: 13px;
+  font-family: 'LexendDeca-Regular';
+  padding: 0px 0px 5px;
+  box-sizing: border-box;
+}
+.reservationListBlock ul li select {
+  display: block;
+  border: #ccc solid 1px;
+  font-family: 'LexendDeca-Regular';
+  width: 100px;
+  padding: 2px;
+  font-size: 11px;
+  border-radius: 10px;
+}
+.reservationListBlock ul li button{
+  border: none;
+  width: 90%;
+  padding: 6px;
+  box-sizing: border-box;
+  margin: 5px auto;
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  line-height: 18px;
+  cursor: pointer;
+  font-family: 'LexendDeca-Regular';
+  background-color: #f5d849;
+  border-radius: 16px;
+  position: absolute;
+  bottom: 5px;
+  left: 0px;
+  right: 0px;
 }
 
 /* #year-options {

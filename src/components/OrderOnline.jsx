@@ -1,7 +1,14 @@
 import { type } from '@testing-library/user-event/dist/type';
 import React, { useState, useEffect } from 'react';
+import {
+  useNavigate,
+  Link
+} from "react-router-dom";
+import RestaurantList from '../sharedComponents/RestaurantList';
 
 function OrderOnline(props) {
+
+  let navigate = useNavigate();
 
   var restaurantsList = [
     {
@@ -82,7 +89,7 @@ function OrderOnline(props) {
       restaurantPic: require('../assets/img/pasta.jpg'),
     },
     {
-      id: 10,
+      id: 11,
       category: 'Steakhouse',
       name: "Mandarin Gourmet",
       location: "Karachi Central",
@@ -91,19 +98,16 @@ function OrderOnline(props) {
   ]
 
   const [chooseCategory, SetchooseCategory] = useState('All');
-  const [datalist, Setdatalist] = useState(restaurantsList);
+  const [datalist, Setdatalist] = useState(RestaurantList);
   const [search, Setsearch] = useState('');
-
-  const getCategory = ['All', ...new Set(restaurantsList.map(x => x.category))];
-  console.log('getCategory', getCategory);
 
   const selectedCategory = (chooseCategory) => {
     SetchooseCategory(chooseCategory);
     if (chooseCategory == "All") {
-      Setdatalist(restaurantsList);
+      Setdatalist(RestaurantList);
       return;
     }
-    const filteredData = restaurantsList.filter((x) => {
+    const filteredData = RestaurantList.filter((x) => {
       return x.category == chooseCategory;
     })
     Setdatalist(filteredData);
@@ -112,14 +116,47 @@ function OrderOnline(props) {
   const searchItems = (searchValue) => {
     Setsearch(searchValue)
     if (search !== '') {
-      const filteredData = restaurantsList.filter((item) => {
+      const filteredData = RestaurantList.filter((item) => {
         return Object.values(item).join('').toLowerCase().includes(search.toLowerCase())
       })
       Setdatalist(filteredData)
     }
     else {
-      Setdatalist(restaurantsList)
+      Setdatalist(RestaurantList)
     }
+  }
+
+  function selectCategory(event) {
+    if (event.target.value == "All") {
+      Setdatalist(RestaurantList);
+    }
+    else {
+      const filteredData = RestaurantList.filter((x) => {
+        return x.category == event.target.value;
+      })
+      Setdatalist(filteredData);
+    }
+  }
+
+  const getCategory = ['All', ...new Set(RestaurantList.map(x => x.category))];
+  console.log('getCategory', getCategory);
+
+  const [getLocation, SetgetLocation] = useState('');
+
+  const selectLoction = (e) => {
+    SetgetLocation(e.target.value);
+  };
+
+  const goToReserved = (em) => {
+    const filterBranch = em.branches.filter((x) => x == getLocation);
+    const dataFilter = {
+      category: em.category,
+      name: em.name,
+      branches: filterBranch == '' ? em.branches : filterBranch,
+      picture: em.picture,
+      rating: em.rating,
+    }
+    navigate('/Reservations', { state: dataFilter });
   }
 
   useEffect(() => {
@@ -128,31 +165,124 @@ function OrderOnline(props) {
   return (
     <div>
       <div className='container'>
-        <h3>Order Online</h3>
+        <h3>Reservation</h3>
       </div>
-      <div className='container'>
+      <div className='container clearfix'>
+
+        <div className='reservationFilterBlock'>
+          <div>
+            <label>Filter:</label>
+            <select onChange={selectCategory}>
+              {getCategory.map((item, index) => {
+                return (
+                  <option key={index.toString()} value={item}>{item}</option>
+                )
+              })}
+            </select>
+          </div>
+          <div>
+            <label>Search:</label>
+            <input placeholder='Search' onChange={(e) => searchItems(e.target.value)} />
+          </div>
+          <div>
+            <ul>
+              {getCategory.map((item, index) => {
+                return (<li key={index.toString()}>
+                  <a className={chooseCategory === item ? 'tabActive' : 'tabClick'}
+                    onClick={() => selectedCategory(item)}>{item}</a>
+                </li>)
+              })}
+            </ul>
+          </div>
+
+        </div>
+        <div className='reservationListBlock'>
+          <ul>
+            {datalist.map((em, index) => (
+              <li key={index.toString()}>
+                <img src={em.picture} alt="" />
+                <h1>{em.name}
+                  <span><img src={require('../assets/img/star.png')} alt='' /> {em.rating}</span></h1>
+                {/* <p>{em.branches.join(', ')}</p> */}
+                <p>{em.branches.length == 1 ?
+                  <p>{em.branches}</p>
+                  :
+                  <div>
+                    <label>Select Branch</label>
+                    <select onChange={selectLoction}>
+                      <option>Select</option>
+                      {em.branches.map((item, index) => {
+                        return (
+                          <option key={index.toString()} value={item}>{item}</option>
+                        )
+                      })}
+                    </select>
+                  </div>}
+                </p>
+
+
+                <button
+                  disabled={em.branches.length > 1 ? true : false} 
+                  onClick={() => goToReserved(em)}>Go To Reserved</button>
+
+                {/* {em.branches.length > 1 ?
+                  <button
+                    disabled={RestaurantList.some((x) => (x.id == em.id))}
+                    onClick={() => goToReserved(em)}>Go To Reserved</button>
+                  :
+                  <button onClick={() => goToReserved(em)}>Go To Reserved</button>
+                } */}
+
+
+                {/* <button
+                  disabled={RestaurantList.some((x) => (x.id == em.id)) && em.branches.length > 1}
+                  onClick={() => goToReserved(em)}>Go To Reserved</button> */}
+
+                {/* <button onClick={() => goToReserved(em)}>Go To Reserved</button> */}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+
+
+
+
+
+
+
+        {/* <div>
+          <select onChange={selectCategory}>
+            {getCategory.map((item, index) => {
+              return (
+                <option key={index.toString()} value={item}>{item}</option>
+              )
+            })}
+          </select>
+        </div>
         <div>
           <label>Search:</label>
           <input placeholder='Search' onChange={(e) => searchItems(e.target.value)} />
         </div>
-        <ul className='tablist'>
+        <ul>
           {getCategory.map((item, index) => {
             return (<li key={index.toString()}>
               <a className={chooseCategory === item ? 'tabActive' : 'tabClick'}
                 onClick={() => selectedCategory(item)}>{item}</a>
             </li>)
           })}
-        </ul>
-        <ul className='productList'>
+        </ul> */}
+        {/* <ul className='productList'>
           {datalist.map((em, index) => (
             <li key={index.toString()}>
-              <img src={em.restaurantPic} alt="" />
+              <img src={em.picture} alt="" />
               <p>{em.name}</p>
-              <p>{em.location}</p>
-              <p>{em.category}</p>
+              <p>{em.branches}</p>
+              <p>{em.rating}</p>
+              <button onClick={() => goToReserved(em)}>Go To Reserved</button>
             </li>
           ))}
-        </ul>
+        </ul> */}
       </div>
     </div>
   );
