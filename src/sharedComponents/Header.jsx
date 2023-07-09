@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
     useNavigate,
-    Link
+    Link,
+    NavLink
 } from "react-router-dom";
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { connect, useSelector, useDispatch } from 'react-redux';
@@ -66,12 +67,12 @@ function Header(props) {
             <a className='logo'><img src={require('../assets/img/logo.png')} /></a>
             <div className={responsiveMenu}>
                 <ul>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/About">About</Link></li>
-                    <li><Link to="/Menu">Menu</Link></li>
-                    <li><Link to="/Reservations">Reservations</Link></li>
-                    <li><Link to="/OrderOnline">OrderOnline</Link></li>
-                    <li><Link to="/Login">Login</Link></li>
+                    <li><NavLink className={({ isActive }) => isActive ? 'activeItem' : ''} to="/">Home</NavLink ></li>
+                    <li><NavLink className={({ isActive }) => isActive ? 'activeItem' : ''} to="/About">About</NavLink></li>
+                    <li><NavLink className={({ isActive }) => isActive ? 'activeItem' : ''} to="/Menu">Menu</NavLink></li>
+                    <li><NavLink className={({ isActive }) => isActive ? 'activeItem' : ''} to="/Reservations">Reservations</NavLink></li>
+                    <li><NavLink className={({ isActive }) => isActive ? 'activeItem' : ''} to="/OrderOnline">OrderOnline</NavLink></li>
+                    <li><NavLink className={({ isActive }) => isActive ? 'activeItem' : ''} to="/Login">Login</NavLink></li>
                     <li><a onClick={() => showCart()}><img src={require('../assets/img/shoppingCart.png')} alt='' /> <span>{data.addtocart.cardData.length}</span></a></li>
                 </ul>
                 {cartList && <div className='cartMenu' ref={catMenu}>

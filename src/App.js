@@ -11,6 +11,7 @@ import Home from './components/Home';
 import About from './components/About';
 import Menu from './components/Menu';
 import Reservations from './components/Reservations';
+import ReservationsDetails from './components/ReservationsDetails';
 import OrderOnline from './components/OrderOnline';
 import Checkout from './components/Checkout';
 import Login from './components/Login';
@@ -26,6 +27,7 @@ function App() {
           <Route path="/About" element={<About />} />
           <Route path="/Menu" element={<Menu />} />
           <Route path="/Reservations" element={<Reservations />} />
+          <Route path="/ReservationsDetails" element={<ReservationsDetails />} />
           <Route path="/OrderOnline" element={<OrderOnline />} />
           <Route path="/Checkout" element={<Checkout />} />
           <Route path="/Login" element={<Login />} />

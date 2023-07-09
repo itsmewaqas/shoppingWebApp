@@ -38,9 +38,9 @@ function ProductCart(props) {
             {/* {props.visibilityCtrl && <div></div>} */}
             {data.addtocart.cardData.filter(x => x.id == item.id).map(em => (
               <div className='qtyCtrl'>
-                <button className='miniBtn' onClick={() => addExistingItem(item)}>+</button>
-                <p> Qty: {em.quantity}</p>
                 <button className='miniBtn' onClick={() => removeExistingItem(item)}>-</button>
+                <p> Qty: {em.quantity}</p>
+                <button className='miniBtn' onClick={() => addExistingItem(item)}>+</button>
               </div>
             ))}
             <button

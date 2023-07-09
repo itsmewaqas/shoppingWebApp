@@ -94,3 +94,220 @@ simple seach logic
   https://github.com/AyaBellazreg/React-Shopping-Cart/blob/master/Shopping-Cart/src/components/reducers/cartReducer.jsa
   https://stackup.hashnode.dev/implement-state-management-using-react-redux-in-a-shopping-cart
   https://dev.to/aneeqakhan/building-shopping-cart-actions-and-reducers-with-redux-in5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  import { type } from '@testing-library/user-event/dist/type';
+import React, { useState, useEffect } from 'react';
+import {
+  useNavigate,
+  Link
+} from "react-router-dom";
+import RestaurantList from '../sharedComponents/RestaurantList';
+import LocationSelect from '../sharedComponents/LocationSelect';
+
+
+function OrderOnline(props) {
+
+  let navigate = useNavigate();
+
+  const [chooseCategory, SetchooseCategory] = useState('All');
+  const [datalist, Setdatalist] = useState(RestaurantList);
+  const [search, Setsearch] = useState('');
+
+  const selectedCategory = (chooseCategory) => {
+    SetchooseCategory(chooseCategory);
+    if (chooseCategory == "All") {
+      Setdatalist(RestaurantList);
+      return;
+    }
+    const filteredData = RestaurantList.filter((x) => {
+      return x.category == chooseCategory;
+    })
+    Setdatalist(filteredData);
+  }
+
+  const searchItems = (searchValue) => {
+    Setsearch(searchValue)
+    if (search !== '') {
+      const filteredData = RestaurantList.filter((item) => {
+        return Object.values(item).join('').toLowerCase().includes(search.toLowerCase())
+      })
+      Setdatalist(filteredData)
+    }
+    else {
+      Setdatalist(RestaurantList)
+    }
+  }
+
+  function selectCategory(event) {
+    if (event.target.value == "All") {
+      Setdatalist(RestaurantList);
+    }
+    else {
+      const filteredData = RestaurantList.filter((x) => {
+        return x.category == event.target.value;
+      })
+      Setdatalist(filteredData);
+    }
+  }
+
+  const getCategory = ['All', ...new Set(RestaurantList.map(x => x.category))];
+  console.log('getCategory', getCategory);
+
+  const [getLocation, SetgetLocation] = useState('');
+  const [isDisabled, SetisDisabled] = useState(true);
+
+
+
+  const selectLoction = (e) => {
+    SetgetLocation(e.target.value);
+    const index = e.target.selectedIndex;
+
+    if (e.target.value === 'Select') {
+      SetisDisabled(true);
+    } else {
+      const filteredData = RestaurantList.filter((x) => {
+        return x.id === index;
+      });
+      SetisDisabled(false);
+    }
+  };
+
+
+  const goToReserved = (em) => {
+    const filterBranch = em.branches.filter((x) => x == getLocation);
+    const dataFilter = {
+      category: em.category,
+      name: em.name,
+      branches: filterBranch == '' ? em.branches : filterBranch,
+      picture: em.picture,
+      rating: em.rating,
+    }
+    navigate('/Reservations', { state: dataFilter });
+  }
+
+  useEffect(() => {
+  }, [])
+
+  return (
+    <div>
+      <div className='container'>
+        <h3>Reservation</h3>
+      </div>
+      <div className='container clearfix'>
+
+        <div className='reservationFilterBlock'>
+          <div>
+            <label>Filter:</label>
+            <select onChange={selectCategory}>
+              {getCategory.map((item, index) => {
+                return (
+                  <option key={index.toString()} value={item}>{item}</option>
+                )
+              })}
+            </select>
+          </div>
+          <div>
+            <label>Search:</label>
+            <input placeholder='Search' onChange={(e) => searchItems(e.target.value)} />
+          </div>
+          <div>
+            <ul>
+              {getCategory.map((item, index) => {
+                return (<li key={index.toString()}>
+                  <a className={chooseCategory === item ? 'tabActive' : 'tabClick'}
+                    onClick={() => selectedCategory(item)}>{item}</a>
+                </li>)
+              })}
+            </ul>
+          </div>
+
+        </div>
+        <div className='reservationListBlock'>
+          <ul>
+            {datalist.map((em, index) => (
+              <li key={index.toString()}>
+                <img src={em.picture} alt="" />
+                <h1>{em.name}
+                  <span><img src={require('../assets/img/star.png')} alt='' /> {em.rating}</span></h1>
+                {/* <p>{em.branches.join(', ')}</p> */}
+                <p>{em.branches.length == 1 ?
+                  <p>{em.branches}</p>
+                  :
+                  <div>
+                    <label>Select Branch</label>
+
+                    <select  onChange={(e) => selectLoction(e)}>
+                      <option>Select</option>
+                      {em.branches.map((item, index) => {
+                        return (
+                          <option key={index.toString()} value={item}>{item}</option>
+                        )
+                      })}
+                    </select>
+
+                    {/* <LocationSelect
+                      menuData={em.branches}
+                      handleDropdown={selectLoction} /> */}
+
+                  </div>}
+                </p>
+
+                {em.branches.length > 1 ?
+                  <button
+                    disabled={isDisabled} 
+                    onClick={() => goToReserved(em)}>Go To Reserved</button>
+                  :
+                  <button onClick={() => goToReserved(em)}>Go To Reserved</button>
+                }
+
+                {/* <button
+                  disabled={em.branches.length > 1 && isDisabled}
+                  onClick={() => goToReserved(em)}>Go To Reserved</button> */}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  );
+}
+
+export default OrderOnline;
+
+
+
+// https://codingstatus.com/portfolio-gallery-with-filtering-in-react/
+// https://www.freecodecamp.org/news/build-a-search-filter-using-react-and-react-hooks/
+
+// var uniq = 'id' + (new Date()).getTime();
+// console.log(uniq);

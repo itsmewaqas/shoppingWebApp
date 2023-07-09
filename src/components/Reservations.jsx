@@ -1,369 +1,186 @@
+import { type } from '@testing-library/user-event/dist/type';
 import React, { useState, useEffect } from 'react';
-import CustomDrop from '../sharedComponents/CustomDrop';
-import { useLocation } from "react-router-dom";
+import {
+  useNavigate,
+  Link
+} from "react-router-dom";
+import RestaurantList from '../sharedComponents/RestaurantList';
+import LocationSelect from '../sharedComponents/LocationSelect';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function Reservations(props) {
+function OrderOnline(props) {
 
+  let navigate = useNavigate();
 
-  const location = useLocation();
-  const data = location.state;
-  console.log(data);
+  const [chooseCategory, SetchooseCategory] = useState('All');
+  const [datalist, Setdatalist] = useState(RestaurantList);
+  const [search, Setsearch] = useState('');
 
-  const [seating, Setseating] = useState('');
-  const [reservedDate, SetreservedDate] = useState('');
+  const notify = () => toast.error("Please Select Branch", {
+    position: "bottom-right",
+    theme: "dark"
+  });
 
-  const numberOfMembers = [
-    {
-      id: 0,
-      mNum: '1 Diner',
-    },
-    {
-      id: 1,
-      mNum: '2 Diners',
-    },
-    {
-      id: 2,
-      mNum: '3 Diners',
-    },
-    {
-      id: 3,
-      mNum: '4 Diners',
-    },
-    {
-      id: 4,
-      mNum: '5 Diners',
-    },
-    {
-      id: 5,
-      mNum: '6 Diners',
-    },
-    {
-      id: 6,
-      mNum: '7 Diners',
-    },
-    {
-      id: 7,
-      mNum: '8 Diners',
-    },
-    {
-      id: 8,
-      mNum: '9 Diners',
-    },
-    {
-      id: 9,
-      mNum: '10 Diners',
+  const selectedCategory = (chooseCategory) => {
+    SetchooseCategory(chooseCategory);
+    if (chooseCategory == "All") {
+      Setdatalist(RestaurantList);
+      return;
     }
-  ];
-
-  const selectTime = [
-    {
-      id: 0,
-      bTime: '5:00 pm',
-    },
-    {
-      id: 1,
-      bTime: '6:00 pm',
-    },
-    {
-      id: 2,
-      bTime: '7:00 pm',
-    },
-    {
-      id: 3,
-      bTime: '8:00 pm',
-    },
-    {
-      id: 4,
-      bTime: '9:00 pm',
-    },
-    {
-      id: 5,
-      bTime: '10:00 pm',
-    }
-  ];
-
-  const occasion = [
-    {
-      id: 0,
-      sOccasion: 'Birthday',
-    },
-    {
-      id: 1,
-      sOccasion: 'Engagement',
-    },
-    {
-      id: 2,
-      sOccasion: 'Anniversary',
-    }
-  ];
-
-  const [chooseMember, SetchooseMember] = useState('');
-  const selectMember = (item) => {
-    SetchooseMember(item.mNum);
+    const filteredData = RestaurantList.filter((x) => {
+      return x.category == chooseCategory;
+    })
+    Setdatalist(filteredData);
   }
 
-  const [chooseTime, SetchooseTime] = useState('');
-  const seletcTime = (item) => {
-    SetchooseTime(item.bTime);
-  }
-
-  const [chooseOccasion, SetchooseOccasion] = useState('');
-  const selectOccasion = (item) => {
-    SetchooseOccasion(item.sOccasion);
-  }
-
-  const [firstName, SetfirstName] = useState('');
-  const [lastName, SetlastName] = useState('');
-  const [email, Setemail] = useState('');
-  const [cell, Setcell] = useState('');
-  const [specialRequest, SetspecialRequest] = useState('');
-
-  const [seatingErr, SetseatingErr] = useState("");
-  const [reservedDateErr, SetreservedDateErr] = useState("");
-  const [chooseMemberErr, SetchooseMemberErr] = useState("");
-  const [chooseTimeErr, SetchooseTimeErr] = useState("");
-  const [chooseOccasionErr, SetchooseOccasionErr] = useState("");
-
-  const [firstNameErr, SetfirstNameErr] = useState("");
-  const [lastNameErr, SetlastNameErr] = useState("");
-  const [emailErr, SetemailErr] = useState("");
-  const [cellErr, SetcellErr] = useState("");
-  const [specialRequestErr, SetspecialRequestErr] = useState("");
-
-  const [successBox, SetsuccessBox] = useState(false);
-  const [finaldata, Setfinaldata] = useState({});
-
-
-  function clearSubmission() {
-    SetseatingErr("");
-    SetreservedDateErr("");
-    SetchooseMemberErr("");
-    SetchooseTimeErr("");
-    SetchooseOccasionErr("");
-    SetfirstNameErr("");
-    SetlastNameErr("");
-    SetemailErr("");
-    SetcellErr("");
-    SetspecialRequestErr("");
-  }
-
-  const [formStep1, SetformStep1] = useState(true);
-  const [formStep2, SetformStep2] = useState(false);
-
-  const step1 = () => {
-    clearSubmission();
-    if (seating == undefined || seating == "") {
-      SetseatingErr("Select Seating");
-    }
-    if (reservedDate == undefined || reservedDate == "") {
-      SetreservedDateErr("Select Data");
-    }
-    if (chooseMember == undefined || chooseMember == "") {
-      SetchooseMemberErr("Select No Of Member");
-    }
-    if (chooseTime == undefined || chooseTime == "") {
-      SetchooseTimeErr("Select Time");
-    }
-    if (chooseOccasion == undefined || chooseOccasion == "") {
-      SetchooseOccasionErr("Select Occasion");
-    }
-    if (seating != '' &&
-      reservedDate != '' &&
-      chooseMember != '' &&
-      chooseTime != '' &&
-      chooseOccasion != '') {
-      SetformStep1(false);
-      SetformStep2(true);
+  const searchItems = (searchValue) => {
+    Setsearch(searchValue)
+    if (search !== '') {
+      const filteredData = RestaurantList.filter((item) => {
+        return Object.values(item).join('').toLowerCase().includes(search.toLowerCase())
+      })
+      Setdatalist(filteredData)
     }
     else {
-      return false
+      Setdatalist(RestaurantList)
     }
   }
 
-  const editInfo = () => {
-    SetformStep1(true);
-    SetformStep2(false);
+  function selectCategory(event) {
+    if (event.target.value == "All") {
+      Setdatalist(RestaurantList);
+    }
+    else {
+      const filteredData = RestaurantList.filter((x) => {
+        return x.category == event.target.value;
+      })
+      Setdatalist(filteredData);
+    }
   }
 
-  const reservedFunc = () => {
-    clearSubmission();
-    if (firstName == undefined || firstName == "" || firstName.length <= 5) {
-      SetfirstNameErr("enter first name above 5 character");
+  const getCategory = ['All', ...new Set(RestaurantList.map(x => x.category))];
+  console.log('getCategory', getCategory);
+
+  const [getLocation, SetgetLocation] = useState('');
+  const [selectErr, SetselectErr] = useState(false);
+
+  const [getid, Setgetid] = useState('');
+
+  const selectLoction = (e, id) => {
+    Setgetid(id);
+    SetgetLocation(e.target.value);
+  };
+
+  const goToReserved = (em) => {
+    if (getLocation == '' || em.id != getid) {
+      SetselectErr({ selectErr: true });
+      notify()
     }
-    if (lastName == undefined || lastName == "" || lastName.length <= 5) {
-      SetlastNameErr("enter last name above 5 character");
-    }
-    var emailRgx = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    if (email == undefined || email == "" || !emailRgx.test(email)) {
-      SetemailErr("enter your valid email address");
-    }
-    var cellRgx = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
-    if (cell == undefined || cell == "" || (cellRgx.test(cell) == false)) {
-      SetcellErr("enter your valid cell number");
-    }
-    if (specialRequest == undefined || specialRequest == "") {
-      SetspecialRequestErr("you can write here special request");
-    }
-    if (firstName != '' &&
-      lastName != '' &&
-      email != '' &&
-      cell != '' &&
-      specialRequest != '') {
-      const getdata = {
-        seating,
-        reservedDate,
-        chooseMember,
-        chooseTime,
-        chooseOccasion,
-        firstName,
-        lastName,
-        email,
-        cell,
-        specialRequest,
+    else {
+      const filterBranch = em.branches.filter((x) => x == getLocation);
+      const dataFilter = {
+        category: em.category,
+        name: em.name,
+        branches: filterBranch == '' ? em.branches : filterBranch,
+        picture: em.picture,
+        rating: em.rating,
       }
-      Setfinaldata(getdata);
-      setTimeout(() => {
-        Setseating('');
-        SetreservedDate('');
-        SetchooseMember('');
-        SetchooseTime('');
-        SetchooseOccasion('');
-        SetfirstName('');
-        SetlastName('');
-        Setemail('');
-        Setcell('');
-        SetspecialRequest('');
-        SetformStep1(true);
-        SetformStep2(false);
-        SetsuccessBox(true);
-      }, 1000);
-      console.log(getdata);
+      navigate('/ReservationsDetails', { state: dataFilter });
     }
-    else {
-      return false
+  }
+
+  const renderIcon = (icon) => {
+    switch (icon) {
+      case "All":
+        return require('../assets/img/icons/All.png');
+      case "Cafe":
+        return require('../assets/img/icons/Cafe.png');
+      case "Pizza":
+        return require('../assets/img/icons/Pizza.png');
+      case "FastFood":
+        return require('../assets/img/icons/FastFood.png');
+      case "Buffet":
+        return require('../assets/img/icons/Buffet.png');
+      case "BarBq":
+        return require('../assets/img/icons/BarBq.png');
+      case "Chinese":
+        return require('../assets/img/icons/Chinese.png');
+      case "DesiFood":
+        return require('../assets/img/icons/DesiFood.png');
+      case "Burgers":
+        return require('../assets/img/icons/Burgers.png');
+      case "Steakhouses":
+        return require('../assets/img/icons/Steakhouses.png');
+      case "Icecream":
+        return require('../assets/img/icons/Icecream.png');
+      default:
+        return require('../assets/img/icons/All.png');
     }
   }
 
   useEffect(() => {
-    // console.log('get res...',props.state);
   }, [])
 
   return (
     <div>
-      {successBox &&
-        <dd>
-          <div className='overlay' onClick={() => SetsuccessBox(false)}></div>
-          <div className='successBox'>
-            <button className='close' onClick={() => SetsuccessBox(false)}>X</button>
-            <p>
-              <strong>All good!</strong>
-              Thanks you for the Restaurant Reservation '{finaldata.firstName}' we will meet in the restaurant with best services.
-            </p>
+      <ToastContainer />
+      <div className='container'>
+        <h3>Reservation</h3>
+      </div>
+      <div className='container clearfix'>
+        <div className='reservationFilterBlock'>
+          <div>
+            <label>Filter:</label>
+            <select onChange={selectCategory}>
+              {getCategory.map((item, index) => {
+                return (
+                  <option key={index.toString()} value={item}>{item}</option>
+                )
+              })}
+            </select>
           </div>
-        </dd>}
-      <div className='reservationsBlock'>
-        <div className='container clearfix'>
-          <h3>Reservation</h3>
-          {formStep1 &&
-            <div className='reservationsFormBlock'>
-              <div>
-                <label className='venueSelect'>Indoor Seating
-                  <input type="radio" checked={seating === 'Indoorseating'} value="Indoorseating" onChange={() => Setseating('Indoorseating')} />
-                </label>
-              </div>
-              <div>
-                <label className='venueSelect'>Outdoor Seating
-                  <input type="radio" checked={seating === 'Outdoorseating'} value="Outdoorseating" onChange={() => Setseating('Outdoorseating')} />
-                </label>
-                <p className='error'>{seatingErr}</p>
-              </div>
-              <div>
-                <label className='venueSelect'>Number Of Diners</label>
-                <CustomDrop
-                  categoryIcon={require('../assets/img/peopleIcon.png')}
-                  widthSet={{ width: "50%", float: 'left' }}
-                  data={numberOfMembers}
-                  selectFinalValue={chooseMember || 'Select No Of Diners'}
-                  selectRandomValue={(item) => selectMember(item)}
-                />
-                <p className='error'>{chooseMemberErr}</p>
-              </div>
-              <div>
-                <label className='venueSelect'>Time</label>
-                <CustomDrop
-                  categoryIcon={require('../assets/img/timeIcon.png')}
-                  widthSet={{ width: "50%", float: 'left' }}
-                  data={selectTime}
-                  selectFinalValue={chooseTime || 'Select Time'}
-                  selectRandomValue={(item) => seletcTime(item)}
-                />
-                <p className='error'>{chooseTimeErr}</p>
-              </div>
-              <div>
-                <label className='venueSelect'>Occasion</label>
-                <CustomDrop
-                  categoryIcon={require('../assets/img/occasionIcon.png')}
-                  data={occasion}
-                  selectFinalValue={chooseOccasion || 'Occasion'}
-                  selectRandomValue={(item) => selectOccasion(item)}
-                />
-                <p className='error'>{chooseOccasionErr}</p>
-              </div>
-              <div>
-                <label className='venueSelect'>Date</label>
-                <input type="date" className='customDataStyle' value={reservedDate} onChange={(e) => SetreservedDate(e.target.value)} />
-                <p className='error'>{reservedDateErr}</p>
-              </div>
-              <div></div>
-              <div>
-                <button className='reserveBtn' onClick={() => step1()}>Next</button>
-              </div>
-            </div>}
-          {formStep2 &&
-            <div className='reservationsFormBlock'>
-              <div className='reservationsForm'>
-                <label>First Name</label>
-                <input type="text" value={firstName} onChange={(e) => SetfirstName(e.target.value)} />
-                <p className='error'>{firstNameErr}</p>
-              </div>
-              <div className='reservationsForm'>
-                <label>Last Name</label>
-                <input type="text" value={lastName} onChange={(e) => SetlastName(e.target.value)} />
-                <p className='error'>{lastNameErr}</p>
-              </div>
-              <div className='reservationsForm'>
-                <label>Email</label>
-                <input type="text" value={email} onChange={(e) => Setemail(e.target.value)} />
-                <p className='error'>{emailErr}</p>
-              </div>
-              <div className='reservationsForm'>
-                <label>Cell</label>
-                <input type="text" value={cell} onChange={(e) => Setcell(e.target.value)} />
-                <p className='error'>{cellErr}</p>
-              </div>
-              <div className='fetchInfo'>
-                <p><span>{seating}</span></p>
-                <p><button className='editInfoBtn' onClick={() => editInfo()}><img src={require('../assets/img/editInfo.png')} /></button></p>
-                <div className='clearfix'></div>
-                <p><img src={require('../assets/img/peopleIcon1.png')} /><span>{chooseMember}</span></p>
-                <p><img src={require('../assets/img/timeIcon1.png')} /><span>{chooseTime}</span></p>
-                <p><img src={require('../assets/img/occasionIcon1.png')} /><span>{chooseOccasion}</span></p>
-                <p><img src={require('../assets/img/dateIcon1.png')} /><span>{reservedDate}</span></p>
-              </div>
-              <div className='reservationsForm'>
-                <label>Special Request</label>
-                <textarea cols={30} rows={5} value={specialRequest} onChange={(e) => SetspecialRequest(e.target.value)}></textarea>
-                <p className='error'>{specialRequestErr}</p>
-              </div>
-              <div></div>
-              <div>
-                <button className='reserveBtn' onClick={() => reservedFunc()}>Reserved</button>
-              </div>
-            </div>}
+          <div>
+            <label>Search:</label>
+            <input placeholder='Search' onChange={(e) => searchItems(e.target.value)} />
+          </div>
+          <div>
+            <ul>
+              {getCategory.map((item, index) => {
+                return (<li key={index.toString()}>
+                  <a className={chooseCategory === item ? 'tabActive' : 'tabClick'}
+                    onClick={() => selectedCategory(item)}>
+                    <img src={renderIcon(item)} alt="" />
+                    {item}</a>
+                </li>)
+              })}
+            </ul>
+          </div>
+        </div>
+        <div className='reservationListBlock'>
+          <ul>
+            {datalist.map((em, index) => (
+              <li key={index.toString()}>
+                <img src={em.picture} alt="" />
+                <h1>{em.name}
+                  <span><img src={require('../assets/img/star.png')} alt='' /> {em.rating}</span></h1>
+                <LocationSelect
+                  menuData={em.branches}
+                  handleDropdown={(e) => selectLoction(e, em.id)} />
+                <button onClick={() => goToReserved(em)}>+</button>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
   );
 }
 
-export default Reservations;
+export default OrderOnline;
+
+
+
+// https://www.heroku.com/
+// https://www.gatsbyjs.com/
+// https://vercel.com/solutions/nextjs

@@ -48,7 +48,7 @@ p {
   padding: 15px 0px;
   font-size: 14px;
   line-height: 18px;
-  font-family: 'LexendDeca-Regular';
+  font-family: 'LexendDeca-Light';
   display: block;
   letter-spacing: 1px;
   color: #000;
@@ -122,7 +122,10 @@ header ul li a {
   font-family: 'LexendDeca-Regular';
   font-size: 14px;
   line-height: 18px;
-  color: #000;
+  color: #8d8d8d;
+}
+.activeItem{
+  color: #E5B299;
 }
 header ul li a span{
   position: absolute;
@@ -136,7 +139,7 @@ header ul li a span{
   border-radius: 25px;
 }
 .hearoSection{
-  background-color: #495e57;
+  background-color: #7D5A50;
   width: 100%;
   display: block;
 }
@@ -154,13 +157,13 @@ header ul li a span{
   position: relative;
 }
 .hearoSectionContent div h1{
-  color: #c3a510;
+  color: #E5B299;
   font-weight: normal;
   font-size: 36px;
   line-height: 40px;
 }
 .hearoSectionContent div h1 span{
-  color: #fff;
+  color: #E5B299;
   font-size: 24px;
   line-height: 28px;
   padding-top: 5px;
@@ -177,12 +180,12 @@ header ul li a span{
 .hearoSectionContent div button{
   font-size: 16px;
   line-height: 20px;
-  color: #000;
+  color: #F9FBE7;
   font-family: 'LexendDeca-Regular';
   padding:10px;
   box-sizing: border-box;
-  background-color: #f4ce14;
-  border-radius: 16px;
+  background-color: #E5B299;
+  border-radius: 25px;
   border: none;
   min-width: 200px;
   cursor: pointer;
@@ -197,7 +200,7 @@ header ul li a span{
 footer {
   width: 100%;
   display: block;
-  background-color: #f4ce14;
+  background-color: #7D5A50;
 }
 footer .fcontainer {
   margin: 0px auto;
@@ -221,7 +224,7 @@ footer .fcontainer ul li{
   font-family: 'LexendDeca-Regular';
   font-size: 16px;
   line-height: 20px;
-  color: #495e57;
+  color: #E5B299;
   display: block;
 }
 footer .fcontainer ul li a{
@@ -230,7 +233,7 @@ footer .fcontainer ul li a{
   font-family: 'LexendDeca-Light';
   font-size: 14px;
   line-height: 18px;
-  color: #000;
+  color: #fff;
   display: block;
 }
 footer .fcontainer img {
@@ -243,7 +246,7 @@ footer .fcontainer img {
   max-width: 1170px;
 }
 .container h2{
-  color: #000;
+  color: #B4846C;
   font-weight: normal;
   font-size: 36px;
   line-height: 40px;
@@ -251,7 +254,7 @@ footer .fcontainer img {
   box-sizing: border-box;
 }
 .container h3{
-  color: #000;
+  color: #B4846C;
   font-weight: normal;
   font-size: 36px;
   line-height: 40px;
@@ -269,12 +272,12 @@ footer .fcontainer img {
 .container h2 button{
   font-size: 16px;
   line-height: 20px;
-  color: #000;
+  color: #F9FBE7;
   font-family: 'LexendDeca-Regular';
   padding:10px;
   box-sizing: border-box;
-  background-color: #f4ce14;
-  border-radius: 16px;
+  background-color: #E5B299;
+  border-radius: 25px;
   border: none;
   float: right;
   min-width: 200px;
@@ -304,7 +307,7 @@ ul.productList li{
   padding: 0px;
   margin: 0px 0px 30px;
   box-sizing: border-box;
-  background-color: #edefee;
+  background-color: #fff9f4;
   border-radius: 16px;
 }
 ul.productList li img{
@@ -314,15 +317,15 @@ ul.productList li img{
   border-radius: 16px 16px 0px 0px;
 }
 ul.productList li h3{
-  color: #000;
+  color: #8d8d8d;
   font-weight: normal;
-  font-size: 24px;
-  line-height: 28px;
+  font-size: 18px;
+  line-height: 22px;
   padding: 15px;
   box-sizing: border-box;
 }
 ul.productList li h3 span{
-  color: #ee9972;
+  color: #B4846C;
   font-size: 20px;
   line-height: 24px;
   display: inline-block;
@@ -347,9 +350,11 @@ ul.productList li button{
   font-size: 16px;
   line-height: 20px;
   cursor: pointer;
+  position: relative;
+  color: #747474;
   font-family: 'LexendDeca-Regular';
-  background-color: #f5d849;
-  border-radius: 16px;
+  background-color: #f9ddcf;
+  border-radius: 25px;
 }
 ul.productList li button:disabled {
   /* background-color: #999;
@@ -360,11 +365,9 @@ ul.productList li button:disabled {
 ul.productList li button img{
   width: 24px;
   height: 24px;
-  display: inline;
-  margin-left: 10px;
-  vertical-align: middle;
-  position: relative;
-  top: -2px;
+  position: absolute;
+  top: 6px;
+  right: 10px;
 }
 .qtyCtrl{
   list-style: none;
@@ -382,14 +385,14 @@ ul.productList li button img{
   margin: 15px 0px 15px 15px !important;
 }
 .testimonialsBlock{
-  background-color: #fbdabb;
+  background-color: #F0EDD4;
   width: 100%;
   display: block;
   padding: 90px 0px;
   box-sizing: border-box;
 }
 .testimonialsBlock h3 {
-  color: #000;
+  color: #8d8d8d;
   font-weight: normal;
   text-align: center;
   font-size: 36px;
@@ -447,7 +450,7 @@ ul.testimonialsList li p{
   box-sizing: border-box;
 }
 .hoemAboutSec{
-  background-color: #edefee;
+  background-color: #fff;
   width: 100%;
   display: block;
   padding: 30px 0px;
@@ -464,7 +467,7 @@ ul.testimonialsList li p{
   float: right;
 }
 .hoemAboutSecContent h4 {
-  color: #000;
+  color: #B4846C;
   font-weight: normal;
   font-size: 36px;
   line-height: 40px;
@@ -728,16 +731,16 @@ ul.testimonialsList li p{
 .reserveBtn {
   width: 250px;
   float: right;
-  background-color: #18181c;
+  background-color: #7D5A50;
   color: #fff;
   border: none;
   height: 44px;
   border-radius: 10px;
-  margin: 15px 0px;
+  margin: 5px 0px;
   cursor: pointer;
 }
 .error {
-  color: red;
+  color: #efcfcf;
   font-size: 12px;
   display: block;
   padding: 5px;
@@ -754,31 +757,76 @@ ul.testimonialsList li p{
   background-color: rgba(0, 0, 0, .5);
 }
 .successBox {
-  background-color: #f4ce14;
-  width: 400px;
+  background-color: #ffffff;
+  width: 600px;
   min-height: 200px;
   border-radius: 15px;
   padding: 15px;
   position: fixed;
   left: 0px;
   right: 0px;
-  top: 100px;
+  top: 50px;
   z-index: 120;
   margin: 0px auto;
 }
 .successBox p {
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 12px;
+  line-height: 16px;
   padding: 15px 0px;
   color: #000;
   font-family: 'LexendDeca-Light';
+  border-bottom: #dfdfdf solid 1px;
 }
 .successBox p strong {
   display: block;
-  padding: 15px 0px;
-  font-size: 24px;
-  line-height: 28px;
-  font-family: 'LexendDeca-Regular';
+  padding: 0px 0px 5px;
+  font-size: 14px;
+  line-height: 18px;
+  font-family: 'LexendDeca-Light';
+  text-shadow: none;
+}
+.successBox ul{
+  margin: 0px;
+  padding:5px 0px;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.successBox ul li{
+  padding: 5px;
+  margin:0px;
+  font-size: 12px;
+  line-height: 14px;
+  box-sizing: border-box;
+  border-radius: 40px;
+  position: relative;
+}
+.successBox ul li span{
+  padding-top: 15px;
+  display: inline-block;
+}
+.successBox ul li img{
+  width: 50px;
+  height: 50px;
+}
+.successBoxImg{
+  width: 23px !important;
+  height: 23px !important;
+  vertical-align: middle !important;
+  margin-right: 5px !important;
+}
+.successBoxBtn{
+   float: right;
+   margin: 15px 0px 10px 15px;
+   background-color: #7D5A50;
+   color: #fff;
+   font-size: 12px;
+   line-height: 16px;
+   padding: 5px 15px;
+   border: none;
+   border-radius: 25px;
+   cursor: pointer;
 }
 .close {
   background-color: transparent;
@@ -821,42 +869,41 @@ ul.testimonialsList li p{
     border-radius: 16px!important;
 }
 .reservationsBlock{
-  background-color: #495e57;
+  background-color: #B4846C;
   display: block;
   padding: 15px 0px;
 }
 .reservationsBlock h3{
-  color: #c3a510;
+  color: #fff;
 }
 .reservationsFormBlock{
   padding: 15px 0px;
-  display: grid;
-  grid-template-columns: 400px 400px;
-  flex-direction: row;
-  justify-content: space-evenly;
+  display: block;
+  clear: both;
+}
+.reservationsFormBlock div{
   clear: both;
 }
 .venueSelect{
   color: #fff;
   font-size: 14px;
   font-family: 'LexendDeca-Regular';
+  padding-right: 30px;
 }
 .venueSelect input[type="radio"] {
-  margin-left: 50px;
-  margin-bottom: 30px;
-  margin-top: 15px;
+  margin: 5px 10px 0px 0px;
 }
 .customDrop{
    width: 100%;
    border-radius:10px;
-   margin:15px 0px 15px 0px;
+   margin:10px 0px 10px 0px;
    float: left;
    background-color: #f8f8f8;
    position: relative;
 }
 .customDrop button{
   display: block;
-  background-color: #edefee;
+  background-color: #fff9f4;
   border-radius: 10px;
   padding: 15px;
   box-sizing: border-box;
@@ -891,7 +938,7 @@ ul.testimonialsList li p{
   border-radius: 0px 0px 10px 10px;
   list-style: none;
   display: block;
-  background-color: #edefee;
+  background-color: #fff9f4;
   overflow: auto;
   width: 100%;
   z-index: 3;
@@ -915,7 +962,7 @@ ul.testimonialsList li p{
   cursor: pointer;
 }
 .customDataStyle{
-  background-color: #edefee;
+  background-color: #fff9f4;
   color: #495e57;
   border: none;
   font-family: 'LexendDeca-Regular';
@@ -929,12 +976,12 @@ input[type="date" i] {
   font-size: 16px;
 }
 .reservationsForm{
-  margin: 0px 0px 15px;
+  margin: 0px 0px 5px;
 }
 .reservationsForm label{
   display: block;
   font-size: 14px;
-  padding: 5px 0px 15px;
+  padding: 10px 5px;
   font-family: 'LexendDeca-Regular';
   color: #fff;
 } 
@@ -943,8 +990,8 @@ input[type="date" i] {
   height: 44px;
   color: #000;
   border: #ccc solid 1px;
-  background-color: #edefee;
-  border-radius: 10px;
+  background-color: #fff9f4;
+  border-radius: 25px;
   padding: 0px 10px;
   box-sizing: border-box;
 }
@@ -952,8 +999,8 @@ input[type="date" i] {
   width: 100%;
   color: #000;
   border: #ccc solid 1px;
-  background-color: #edefee;
-  border-radius: 16px;
+  background-color: #fff9f4;
+  border-radius:25px;
   padding: 0px 10px;
   box-sizing: border-box;
 }
@@ -979,13 +1026,10 @@ input[type="date" i] {
 .editInfoBtn{
   background-color: transparent;
   border: none;
-  float: right;
+  float: left;
   cursor: pointer;
+  padding: 7px 0px 0px 0px;
 }
-.editInfoBtn img{
-  margin-right: 0px !important;
-}
-
 ul.restaurantsList{
    list-style: none;
    margin: 15px 0px;
@@ -1041,33 +1085,50 @@ ul.restaurantsList li button{
   padding: 15px 0px;
 }
 .reservationFilterBlock ul{
- display: block;
+ /* display: block;
  list-style: none;
  margin: 0px;
- padding: 5px 30px 0px 0px;
+ padding: 5px 30px 0px 0px; */
+
+  margin: 0px;
+  padding: 0px 0px 15px;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 135px 135px;
+  flex-direction: row;
+  justify-content: space-between;
+
 }
 .reservationFilterBlock ul li{
   list-style: none;
   text-align: center;
+  float: left;
+  width: 110px;
+  margin: 0px 10px 10px 0px;
+}
+.reservationFilterBlock ul li img{
+  display: block;
+  margin: 0px auto 10px;
 }
 .reservationFilterBlock ul li a{
   padding: 10px;
   display: block;
-  text-align: left;
   margin: 5px 0px;
   font-size: 12px;
   box-sizing: border-box;
   font-family: 'LexendDeca-Light';
-  border-radius: 16px;
+  border-radius: 40px;
   cursor: pointer;
 }
 .tabClick{
-  background-color: #cecece;
-  color: #000;
+  background-color: #fff9f4;
+  color: #666;
+  border: #fff9f4 solid 2px;
 }
 .tabActive{
-  background-color: #f5d849;
-  color: #000;
+  background-color: #f9ddcf;
+    color: #999;
+    border: #ddc2ac solid 2px;
 }
 .reservationFilterBlock label{
   color: #000;
@@ -1085,7 +1146,7 @@ ul.restaurantsList li button{
   width: 90%;
   padding: 5px;
   font-size: 12px;
-  border-radius: 10px;
+  border-radius:25px;
   margin-bottom: 10px;
 }
 .reservationFilterBlock input {
@@ -1095,7 +1156,7 @@ ul.restaurantsList li button{
   width: 85%;
   padding: 5px;
   font-size: 12px;
-  border-radius: 10px;
+  border-radius:25px;
   margin-bottom: 10px;
 }
 .reservationListBlock{
@@ -1108,31 +1169,32 @@ ul.restaurantsList li button{
   padding: 0px 0px 30px;
   list-style: none;
   display: grid;
-  grid-template-columns: 200px 200px 200px 200px;
+  grid-template-columns: 210px 210px 210px 210px;
   flex-direction: row;
   justify-content: space-between;
 }
 .reservationListBlock ul li{
   padding: 5px;
-  margin: 0px 0px 30px;
+  margin: 0px 0px 70px;
   box-sizing: border-box;
   box-sizing: border-box;
-  background-color: #fff;
-  border-radius: 16px;
-  box-shadow: 0px 0px 5px #c5c5c5;
+  background-color: #fff9f4;
+  border-radius: 40px;
   position: relative;
-  min-height: 370px;
+  min-height: 180px;
 }
 .reservationListBlock ul li img{
-  margin: 0px auto;
+  margin: -55px auto 0px;
   display: block;
-  width: 100%;
-  border-radius: 16px;
+  width: 100px;
+  border-radius: 40px;
+  box-shadow: 0px 0px 5px #dcdfe1;
 }
 .reservationListBlock ul li h1{
-  color: #000;
+  color: #8d8d8d;
   font-weight: normal;
-  font-size: 16px;
+  text-align: center;
+  font-size: 14px;
   line-height: 20px;
   padding: 15px 5px 5px;
   box-sizing: border-box;
@@ -1146,10 +1208,13 @@ ul.restaurantsList li button{
 }
 .reservationListBlock ul li h1 span img{
   vertical-align: middle;
-  width:16px;
+  padding: 5px 0px;
+  width: 16px;
   height: 16px;
-  margin-right: 5px;
   display: inline-block;
+  margin: 0px 5px 0px 0px;
+  background-color: transparent;
+  box-shadow: none;
 }
 .reservationListBlock ul li p{
   color: #000;
@@ -1168,82 +1233,122 @@ ul.restaurantsList li button{
   box-sizing: border-box;
 }
 .reservationListBlock ul li select {
-  display: block;
-  border: #ccc solid 1px;
-  font-family: 'LexendDeca-Regular';
-  width: 100px;
-  padding: 2px;
+  float: left;
+  font-family: 'LexendDeca-Light';
+  width: 145px;
+  padding: 6px 2px;
+  border: none;
+  color: #666;
   font-size: 11px;
-  border-radius: 10px;
+  margin: 10px 0px 0px 5px;
+  border-radius: 25px;
+  background-color: #f9eee4;
 }
 .reservationListBlock ul li button{
   border: none;
-  width: 90%;
+  width: 30px;
   padding: 6px;
   box-sizing: border-box;
-  margin: 5px auto;
-  display: block;
+  margin:8px 4px 0px 0px;
+  float: right;
   text-align: center;
-  font-size: 12px;
+  font-size: 18px;
   line-height: 18px;
   cursor: pointer;
+  color: #747474;
   font-family: 'LexendDeca-Regular';
-  background-color: #f5d849;
+  background-color: #f9ddcf;
   border-radius: 16px;
-  position: absolute;
-  bottom: 5px;
-  left: 0px;
-  right: 0px;
 }
 
-/* #year-options {
-  display: flex;
-  gap: 10px;
-  margin: 10px;
+.fetchBox{
+  padding:30px;
+  border-radius: 40px;
+  background-color: #fff9f4;
 }
-.car-image {
-  width: 200px;
-  height: 180px;
+.fetchBox:first-child{
+  margin: 80px 0px 15px;
 }
-#car-list {
+.fetchBox h3{
+  display: block;
+  clear: both;
+  color: #000;
+  font-size: 16px;
+  line-height: 20px;
+}
+ul.fetchlist{
+  margin: 0px;
+  padding:0px;
+  list-style: none;
+  overflow: auto;
+  box-sizing: border-box;
   display: grid;
-  gap: 20px;
-  min-height: 480px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 200px 200px;
+  flex-direction: row;
+  justify-content: space-between;
 }
-.car-item {
-  display: flex;
-  height: 200px;
-  flex-direction: column;
-  background-color: #fafafa;
-  border: 1px solid black;
-  padding: 10px;
-  gap: 5px;
+ul.fetchlist li{
+  margin: 0px;
+  padding:5px 0px;
+  color: #7d5a50;
+  font-size: 14px;
+  line-height: 18px;
+  display: block;
 }
-.filter-option,
-.active-option {
-  padding: 10px 20px;
-  min-width: 50px;
-  border-radius: 2rem;
+ul.fetchlist li span{
+  padding-top: 17px;
+  display: inline-block;
 }
-.brand-filter {
-  display: flex;
-  margin: 15px;
+ul.fetchlist li img {
+  width: 50px;
+  height: 50px;
+  border-radius: 20px;
 }
-#brand-input {
-  width: 80px;
-  margin: 0 10px;
-  height: 30px;
+.fetchlistImg2{
+  width: 23px !important;
+  height: 23px!important;
+  border-radius: 0px!important;
+  padding-top: 7px;
 }
-.filter-option:hover,
-.active-option {
-  background-color: #48b393;
-  color: white;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  transition: all 0.1s;
-} */
+ul.fetchlist2{
+  margin: 0px;
+  padding:0px;
+  list-style: none;
+  overflow: auto;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 200px 200px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+ul.fetchlist2 li{
+  margin: 0px;
+  padding:10px 0px;
+  color: #7d5a50;
+  font-size: 14px;
+  line-height: 18px;
+  display: block;
+}
+ul.fetchlist2 li span{
+  padding-top: 10px;
+  display: inline-block;
+}
+ul.fetchlist2 li img {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+.reservationFormBlock1 {
+  float: left;
+  width:400px;
+  padding: 15px 0px;
+}
+.reservationFormBlock2 {
+  float: left;
+  width: 770px;
+  padding: 15px 0px 15px 100px;
+  box-sizing: border-box;
+}
+
 
 
 
