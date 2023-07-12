@@ -13,6 +13,7 @@ import Menu from './components/Menu';
 import Reservations from './components/Reservations';
 import ReservationsDetails from './components/ReservationsDetails';
 import OrderOnline from './components/OrderOnline';
+import OrderOnlineDetails from './components/OrderOnlineDetails';
 import Checkout from './components/Checkout';
 import Login from './components/Login';
 import Nomatch from './sharedComponents/Nomatch';
@@ -29,6 +30,7 @@ function App() {
           <Route path="/Reservations" element={<Reservations />} />
           <Route path="/ReservationsDetails" element={<ReservationsDetails />} />
           <Route path="/OrderOnline" element={<OrderOnline />} />
+          <Route path="/OrderOnlineDetails" element={<OrderOnlineDetails />} />
           <Route path="/Checkout" element={<Checkout />} />
           <Route path="/Login" element={<Login />} />
           <Route path="*" element={<Nomatch />} />

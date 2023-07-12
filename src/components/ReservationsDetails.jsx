@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CustomDrop from '../sharedComponents/CustomDrop';
 import { useLocation, useNavigate } from "react-router-dom";
+import jsPDF from 'jspdf';
 
 function Reservations(props) {
 
@@ -263,6 +264,43 @@ function Reservations(props) {
     navigate('/Reservations');
   }
 
+  const downloadPDF = () => {
+    var doc = new jsPDF('landscape', 'px', 'a4', 'false');
+    //doc.addImage(require('../assets/img/logo.png'), 'PNG', 65, 20, 500, 400);
+    // doc.addPage();
+    doc.setFontSize(24);
+    doc.text(50, 50, "Thanks!");
+    doc.setFontSize(12);
+    doc.text(50, 75, `Thank you for the Restaurant Reservation ${finaldata.firstName} we will meet in the restaurant with best services.`,);
+    doc.line(50, 85, 560, 85);
+    doc.setFontSize(16);
+    doc.text(50, 125, "Restaurant Details");
+    doc.addImage(getResData.picture, 'PNG', 50, 130, 50, 50);
+    doc.setFontSize(12);
+    doc.text(50, 200, getResData.name);
+    doc.text(50, 230, getResData.branches);
+    doc.text(50, 260, getResData.rating.toString());
+    doc.line(200, 115, 200, 300);
+    doc.setFontSize(16);
+    doc.text(220, 125, "Booking Details");
+    doc.setFontSize(12);
+    doc.text(220, 160, seating);
+    doc.text(220, 190, chooseMember);
+    doc.text(220, 220, chooseTime);
+    doc.text(220, 250, chooseOccasion);
+    doc.text(220, 280, reservedDate);
+    doc.line(400, 115, 400, 300);
+    doc.setFontSize(16);
+    doc.text(420, 125, "Personal Details");
+    doc.setFontSize(12);
+    doc.text(420, 160, firstName);
+    doc.text(420, 190, lastName);
+    doc.text(420, 220, email);
+    doc.text(420, 250, cell);
+    var splitTitle = doc.splitTextToSize(specialRequest, 180);
+    doc.text(420, 280, splitTitle);
+    doc.save('receipt.pdf');
+  }
 
   useEffect(() => {
     SetgetResData(data);
@@ -304,7 +342,7 @@ function Reservations(props) {
             </ul>
             <div className='clearfix'>
               <button className='successBoxBtn' onClick={() => closeModal(false)}>Done</button>
-              <button className='successBoxBtn'>Downloa PDF</button>
+              <button className="successBoxBtn" onClick={() => downloadPDF()}>Downloa Receipt</button>
             </div>
           </div>
         </dd>}

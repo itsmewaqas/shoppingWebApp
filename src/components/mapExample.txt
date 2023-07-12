@@ -289,14 +289,6 @@ function OrderOnline(props) {
             ))}
           </ul>
         </div>
-
-
-
-
-
-
-
-
       </div>
     </div>
   );
@@ -309,5 +301,100 @@ export default OrderOnline;
 // https://codingstatus.com/portfolio-gallery-with-filtering-in-react/
 // https://www.freecodecamp.org/news/build-a-search-filter-using-react-and-react-hooks/
 
+// https://www.cluemediator.com/how-to-disable-the-past-and-future-dates-in-react-datetime#ardira
+
 // var uniq = 'id' + (new Date()).getTime();
 // console.log(uniq);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React, { useState } from "react";
+
+function App() {
+  const [data, setData] = useState([
+    {
+      id: 1,
+      name: "Parent 1",
+      children: [
+        { id: 1, name: "Child 1" },
+        { id: 2, name: "Child 2" },
+        { id: 3, name: "Child 3" },
+      ],
+    },
+    {
+      id: 2,
+      name: "Parent 2",
+      children: [
+        { id: 4, name: "Child 4" },
+        { id: 5, name: "Child 5" },
+        { id: 6, name: "Child 6" },
+      ],
+    },
+    {
+      id: 3,
+      name: "Parent 3",
+      children: [
+        { id: 7, name: "Child 7" },
+        { id: 8, name: "Child 8" },
+        { id: 9, name: "Child 9" },
+      ],
+    },
+  ]);
+
+  const [selectedParentId, setSelectedParentId] = useState(null);
+
+  const handleParentClick = (id) => {
+    setSelectedParentId(id);
+  };
+
+  return (
+    <div>
+      <ul>
+        {data.map((parent) => (
+          <li key={parent.id} onClick={() => handleParentClick(parent.id)}>
+            {parent.name}
+            {selectedParentId === parent.id && (
+              <ul>
+                {parent.children.map((child) => (
+                  <li key={child.id}>{child.name}</li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default App;
