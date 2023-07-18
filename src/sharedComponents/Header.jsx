@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
     useNavigate,
     Link,
@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { connect, useSelector, useDispatch } from 'react-redux';
-import { removeToCart } from '../redux/Actions/index';
+import { removeToCart} from '../redux/Actions/index';
 
 function Header(props) {
 
@@ -44,7 +44,7 @@ function Header(props) {
     const getTotal = (items) => {
         let subtotal = 0;
         items.forEach(item => {
-            subtotal = subtotal + (item.productPrice * item.quantity)
+            subtotal = subtotal + (item.itemPrice * item.quantity)
         })
         return subtotal;
     }
@@ -60,6 +60,9 @@ function Header(props) {
 
     useEffect(() => {
     }, [])
+
+    // useCallback(() => {
+    // }, [])
 
     return (
         <header>
@@ -84,9 +87,9 @@ function Header(props) {
                                     {data.addtocart.cardData.length >= 0 ?
                                         data.addtocart.cardData?.map((pItem, index) => (
                                             <li key={index.toString()}>
-                                                <img src={pItem.productImg} alt="" />
-                                                <p>{pItem.productTitle}
-                                                    <span>Price: ${pItem.productPrice}</span></p>
+                                                <img src={pItem.itemImg} alt="" />
+                                                <p>{pItem.itemName}
+                                                    <span>Price: ${pItem.itemPrice}</span></p>
                                                 <button onClick={() => removeItem(pItem.id)}>X</button>
                                             </li>
                                         ))

@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import RestaurantListMenu from '../sharedComponents/RestaurantListMenu';
+import React, { useState, useEffect, useCallback, Fragment } from 'react';
+import RestaurantList from '../sharedComponents/RestaurantList';
 import { useLocation } from "react-router-dom";
 import { connect, useSelector, useDispatch } from 'react-redux';
-import { addToCart } from '../redux/Actions/index';
+import { addToCart, itemIncrement, itemDecrement } from '../redux/Actions/index';
 
 function OrderOnlineDetails(props) {
 
   const location = useLocation();
   const itemDetail = location.state;
-  
+
   const dispatch = useDispatch();
   const data = useSelector((state) => {
     return state
@@ -23,9 +23,23 @@ function OrderOnlineDetails(props) {
     ))
   }
 
+  const addExistingItem = (item) => {
+    console.log('call addExistingItem', item);
+    dispatch(itemIncrement(
+      item
+    ))
+  }
+
+  const removeExistingItem = (item) => {
+    console.log('call removeExistingItem', item);
+    dispatch(itemDecrement(
+      item
+    ))
+  }
+
   const [filterMenu, SetfilterMenu] = useState([]);
   useEffect(() => {
-    const filterMenuList = RestaurantListMenu.filter((x) => {
+    const filterMenuList = RestaurantList.filter((x) => {
       return x.id == itemDetail.id;
     })
     SetfilterMenu(filterMenuList);
@@ -34,25 +48,32 @@ function OrderOnlineDetails(props) {
   return (
     <div>
       <div className='container clearfix'>
-        <h3>Menu</h3>
-        {filterMenu.length == 0 ?
-          <div>data not found</div>
-          :
-          <div>
-            <h1>fetch menu list</h1>
+        <h3>{itemDetail.name}</h3>
+
+        <div className='reservationListBlock' style={{ marginTop: '50px' }}>
+          <ul>
             {filterMenu.map((item, index) => (
-              <div key={index.toString()}>
-                {item.menuList.map((child, index) => (
-                  <div key={index.toString()}>
-                    <img src={child.itemImg} alt="" />
-                    <p>{child.itemName}</p>
-                    <p>${child.itemPrice}</p>
-                  </div>
+              <Fragment key={index.toString()}>
+                {item.menuList.map((item, index) => (
+                  <li key={index.toString()}>
+                    <img src={item.itemImg} alt="" />
+                    <h1>{item.itemName} <span>${item.itemPrice}</span></h1>
+                    {data.addtocart.cardData.filter(x => x.id == item.id).map(em => (
+                      <div className='qtyCtrl'>
+                        <button className='miniBtn' onClick={() => removeExistingItem(item)}>-</button>
+                        <p> Qty: {em.quantity}</p>
+                        <button className='miniBtn' onClick={() => addExistingItem(item)}>+</button>
+                      </div>
+                    ))}
+                    <button className='btn2'
+                      disabled={data.addtocart.cardData.some((x) => (x.id == item.id))}
+                      onClick={() => addItem(item)}>Add To Cart</button>
+                  </li>
                 ))}
-              </div>
+              </Fragment>
             ))}
-          </div>
-        }
+          </ul>
+        </div>
       </div>
     </div>
   );

@@ -991,6 +991,7 @@ input[type="date" i] {
   color: #000;
   border: #ccc solid 1px;
   background-color: #fff9f4;
+  font-family: 'LexendDeca-Regular';
   border-radius: 25px;
   padding: 0px 10px;
   box-sizing: border-box;
@@ -1000,6 +1001,7 @@ input[type="date" i] {
   color: #000;
   border: #ccc solid 1px;
   background-color: #fff9f4;
+  font-family: 'LexendDeca-Regular';
   border-radius:25px;
   padding: 0px 10px;
   box-sizing: border-box;
@@ -1080,35 +1082,28 @@ ul.restaurantsList li button{
   box-sizing: border-box;
 }
 .reservationFilterBlock{
-  float: left;
-  width: 270px;
-  padding: 15px 0px;
+  display: block;
+  padding: 0px 0px 30px;
 }
 .reservationFilterBlock ul{
- /* display: block;
- list-style: none;
- margin: 0px;
- padding: 5px 30px 0px 0px; */
-
   margin: 0px;
-  padding: 0px 0px 15px;
+  padding: 15px 0px;
   list-style: none;
-  display: grid;
-  grid-template-columns: 135px 135px;
+  display: flex;
+  clear: both;
   flex-direction: row;
   justify-content: space-between;
-
 }
 .reservationFilterBlock ul li{
   list-style: none;
   text-align: center;
-  float: left;
-  width: 110px;
-  margin: 0px 10px 10px 0px;
+  width: 100px;
+  margin: 0px 0px 10px 0px;
 }
 .reservationFilterBlock ul li img{
   display: block;
   margin: 0px auto 10px;
+  width: 36px;
 }
 .reservationFilterBlock ul li a{
   padding: 10px;
@@ -1117,20 +1112,24 @@ ul.restaurantsList li button{
   font-size: 12px;
   box-sizing: border-box;
   font-family: 'LexendDeca-Light';
-  border-radius: 40px;
+  border-radius: 15px;
   cursor: pointer;
 }
 .tabClick{
   background-color: #fff9f4;
-  color: #666;
+  color: #999;
   border: #fff9f4 solid 2px;
 }
 .tabActive{
   background-color: #f9ddcf;
-    color: #999;
-    border: #ddc2ac solid 2px;
+  color: #000;
+  border: #ddc2ac solid 2px;
 }
-.reservationFilterBlock label{
+.filterLeft{
+  float: left;
+  width: 250px;
+}
+.filterLeft label{
   color: #000;
   display: block;
   font-size: 12px;
@@ -1139,37 +1138,49 @@ ul.restaurantsList li button{
   padding: 0px 0px 10px;
   box-sizing: border-box;
 }
-.reservationFilterBlock select {
+.filterLeft select {
   display: block;
   border: #ccc solid 1px;
   font-family: 'LexendDeca-Regular';
-  width: 90%;
+  width:100%;
   padding: 5px;
   font-size: 12px;
-  border-radius:25px;
-  margin-bottom: 10px;
+  border-radius:10px;
+  margin-bottom: 15px;
 }
-.reservationFilterBlock input {
+.fiterRight{
+  float: right;
+  width: 250px;
+}
+.fiterRight label{
+  color: #000;
+  display: block;
+  font-size: 12px;
+  line-height: 14px;
+  font-family: 'LexendDeca-Regular';
+  padding: 0px 0px 10px;
+  box-sizing: border-box;
+}
+.fiterRight input {
   display: block;
   border: #ccc solid 1px;
   font-family: 'LexendDeca-Regular';
-  width: 85%;
+  width: 94%;
   padding: 5px;
   font-size: 12px;
-  border-radius:25px;
-  margin-bottom: 10px;
+  border-radius:10px;
+  margin-bottom: 15px;
 }
 .reservationListBlock{
-  float: left;
-  width: 900px;
-  padding: 15px 0px;
+  display: block;
+  padding: 30px 0px;
 }
 .reservationListBlock ul{
   margin: 0px;
   padding: 0px 0px 30px;
   list-style: none;
   display: grid;
-  grid-template-columns: 210px 210px 210px 210px;
+  grid-template-columns: 225px 225px 225px 225px 225px;
   flex-direction: row;
   justify-content: space-between;
 }
@@ -1179,7 +1190,7 @@ ul.restaurantsList li button{
   box-sizing: border-box;
   box-sizing: border-box;
   background-color: #fff9f4;
-  border-radius: 40px;
+  border-radius: 15px;
   position: relative;
   min-height: 180px;
 }
@@ -1187,7 +1198,7 @@ ul.restaurantsList li button{
   margin: -55px auto 0px;
   display: block;
   width: 100px;
-  border-radius: 40px;
+  border-radius: 15px;
   box-shadow: 0px 0px 5px #dcdfe1;
 }
 .reservationListBlock ul li h1{
@@ -1235,13 +1246,13 @@ ul.restaurantsList li button{
 .reservationListBlock ul li select {
   float: left;
   font-family: 'LexendDeca-Light';
-  width: 145px;
+  width: 160px;
   padding: 6px 2px;
   border: none;
   color: #666;
   font-size: 11px;
   margin: 10px 0px 0px 5px;
-  border-radius: 25px;
+  border-radius: 10px;
   background-color: #f9eee4;
 }
 .reservationListBlock ul li button{
@@ -1258,12 +1269,48 @@ ul.restaurantsList li button{
   color: #747474;
   font-family: 'LexendDeca-Regular';
   background-color: #f9ddcf;
-  border-radius: 16px;
+  border-radius: 10px;
 }
-
+.reservationListBlock ul li button:disabled {
+  background: #d5d5d5;
+  color: #555;
+  cursor: not-allowed;
+}
+.reservationListBlock ul li .btn2 {
+  float: none;
+  display: block;
+  width: 90%;
+  margin: 15px auto 0px;
+  font-size: 14px;
+  position: absolute;
+  bottom: 10px;
+  left: 0px;
+  right: 0px;
+}
+.reservationListBlock ul li .btn2:disabled {
+  display: none;
+}
+.editBtn{
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  margin: 0px !important;
+  background-color: transparent !important;
+}
+.editBtn:disabled {
+  display: none;
+}
+.editBtn img{
+    width: 24px !important;
+    height: 24px;
+    border-radius: 0px !important;
+    box-shadow: none !important;
+    margin: 0px !important;
+    background: transparent !important;
+}
 .fetchBox{
-  padding:30px;
-  border-radius: 40px;
+  padding:15px;
+  border-radius: 15px;
   background-color: #fff9f4;
 }
 .fetchBox:first-child{

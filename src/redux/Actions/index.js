@@ -33,3 +33,16 @@ export const ordersuccess = () => {
   }
 }
 
+export const addToRestaurant = (data) => {
+  return {
+    type: 'ADDRESTAURANT',
+    payload: data,
+  }
+}
+
+export const removeoRestaurant = (id) => {
+  return {
+    type: 'REMOVERESTAURANT',
+    id
+  }
+}

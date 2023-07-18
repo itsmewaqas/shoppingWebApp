@@ -3,14 +3,21 @@ import {
   useNavigate,
   Link
 } from "react-router-dom";
-import RestaurantListMenu from '../sharedComponents/RestaurantListMenu';
+import RestaurantList from '../sharedComponents/RestaurantList';
 import LocationSelect from '../sharedComponents/LocationSelect';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { connect, useSelector, useDispatch } from 'react-redux';
+import { addToRestaurant, removeoRestaurant } from '../redux/Actions/index';
 
 function Menu(props) {
 
   let navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  const data = useSelector((state) => {
+    return state
+  });
 
   const notify = () => toast.error("Please Select Branch", {
     position: "bottom-right",
@@ -19,7 +26,6 @@ function Menu(props) {
 
   const [getLocation, SetgetLocation] = useState('');
   const [selectErr, SetselectErr] = useState(false);
-
   const [getid, Setgetid] = useState('');
 
   const selectLoction = (e, id) => {
@@ -43,9 +49,28 @@ function Menu(props) {
         rating: item.rating,
         menuList: item.menuList,
       }
+      dispatch(addToRestaurant(
+        dataFilter
+      ))
       navigate('/OrderOnlineDetails', { state: dataFilter });
     }
   }
+
+  const goToSelectedMenu = (item) => {
+    navigate('/OrderOnlineDetails', { state: item });
+  }
+
+  // const deleteRes = (item) =>{
+  //   dispatch(removeoRestaurant(
+  //     item.id
+  //   ))
+  // debugger
+      // if (data.addtocart.cardData.length < 0) {
+      //   dispatch(removeoRestaurant(
+      //     item.id
+      //   ))
+      // }
+  // }
 
   useEffect(() => {
   }, []);
@@ -54,10 +79,10 @@ function Menu(props) {
     <div>
       <ToastContainer />
       <div className='container clearfix'>
-        <h3>Menu</h3>
-        <div className='reservationListBlock'>
+        <h3>Select Restaurant</h3>
+        <div className='reservationListBlock' style={{ marginTop: '50px' }}>
           <ul>
-            {RestaurantListMenu.map((item, index) => (
+            {RestaurantList.map((item, index) => (
               <li key={index.toString()}>
                 <img src={item.picture} alt="" />
                 <h1>{item.name}
@@ -65,13 +90,28 @@ function Menu(props) {
                 <LocationSelect
                   menuData={item.branches}
                   handleDropdown={(e) => selectLoction(e, item.id)} />
-                <button onClick={() => goToRestaurantDetail(item)}>+</button>
+                <button
+                  disabled={data.addtocart.cardData.length > 0 ? true : false}
+                  onClick={() => goToRestaurantDetail(item)}>+</button>
+
+                {/* <button onClick={() => deleteRes(item)}>X</button> */}
+
+                <button
+                  className='editBtn'
+                  disabled={
+                    data.addRestaurant.restaurantData.length == 0 ? true :
+                      data.addtocart.cardData.length == 0 ? true :
+                        data.addRestaurant.restaurantData.some((x) => (x.id !== item.id))}
+                  onClick={() => goToSelectedMenu(item)}>
+                  <img src={require('../assets/img/edit.png')} alt="" />
+                </button>
+
               </li>
             ))}
           </ul>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 

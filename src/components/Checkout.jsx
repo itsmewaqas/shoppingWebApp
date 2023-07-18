@@ -100,7 +100,7 @@ function Checkout(props) {
   const getTotal = (items) => {
     let subtotal = 0;
     items.forEach(item => {
-      subtotal = subtotal + (item.productPrice * item.quantity)
+      subtotal = subtotal + (item.itemPrice * item.quantity)
     })
     return subtotal;
   }
@@ -109,7 +109,7 @@ function Checkout(props) {
   const getSubTotal = (items) => {
     let subtotal = 0;
     items.forEach(item => {
-      subtotal = subtotal + (item.productPrice * item.quantity)
+      subtotal = subtotal + (item.itemPrice * item.quantity)
     })
     return subtotal + tax;
   }
@@ -168,16 +168,18 @@ function Checkout(props) {
                 <tbody>
                   {data.addtocart.cardData.length >= 0 ?
                     data.addtocart.cardData?.map((pItem, index) => (
-                      <tr key={index.toString()}> 
+                      <tr key={index.toString()}>
                         <td>
                           <button onClick={() => addExistingItem(pItem)}>+</button>
                           <button onClick={() => removeExistingItem(pItem)}>-</button>
                         </td>
-                        <td><img src={pItem.productImg} alt="" /></td>
-                        <td>{pItem.productTitle}</td>
-                        <td>{pItem.productPrice}</td>
-                        <td>{pItem.productDescription}</td>
-                        <td>{pItem.productType}</td>
+                        <td><img src={pItem.itemImg} alt="" /></td>
+                        <td>{pItem.itemName}</td>
+                        <td>{pItem.itemPrice}</td>
+                        {/* <td>{pItem.productDescription}</td>
+                        <td>{pItem.productType}</td> */}
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
                         <td>{pItem.quantity}</td>
                         <td><button className='tableCrros' onClick={() => removeItem(pItem.id)}>X</button></td>
                       </tr>

@@ -68,7 +68,7 @@ function OrderOnline(props) {
   const [getid, Setgetid] = useState('');
 
   const selectLoction = (e, id) => {
-    Setgetid(id);
+    Setgetid(id); 
     SetgetLocation(e.target.value);
   };
 
@@ -130,7 +130,7 @@ function OrderOnline(props) {
       </div>
       <div className='container clearfix'>
         <div className='reservationFilterBlock'>
-          <div>
+          <div className='filterLeft'>
             <label>Filter:</label>
             <select onChange={selectCategory}>
               {getCategory.map((item, index) => {
@@ -140,7 +140,7 @@ function OrderOnline(props) {
               })}
             </select>
           </div>
-          <div>
+          <div className='fiterRight'>
             <label>Search:</label>
             <input placeholder='Search' onChange={(e) => searchItems(e.target.value)} />
           </div>

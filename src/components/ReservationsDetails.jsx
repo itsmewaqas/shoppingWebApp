@@ -395,7 +395,7 @@ function Reservations(props) {
                 </div>
                 <div>
                   <label className='venueSelect'>Date</label>
-                  <input type="date" className='customDataStyle' value={reservedDate} onChange={(e) => SetreservedDate(e.target.value)} />
+                  <input type="date" step="2" className='customDataStyle' value={reservedDate} onChange={(e) => SetreservedDate(e.target.value)} />
                   <p className='error'>{reservedDateErr}</p>
                 </div>
                 <div></div>

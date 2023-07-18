@@ -398,3 +398,35 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const key = Object.keys(dataFilter);
+      // console.log(key);
+
+      // const value = Object.values(dataFilter);
+      // console.log(value);
+
+
+
+
+
+      https://bobbyhadz.com/blog/react-check-if-array-is-empty#:~:text=To%20check%20if%20an%20array,%2C%20it%20isn't%20empty.
