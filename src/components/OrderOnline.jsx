@@ -13,8 +13,8 @@ import { addToRestaurant, removeoRestaurant } from '../redux/Actions/index';
 function Menu(props) {
 
   let navigate = useNavigate();
-
   const dispatch = useDispatch();
+
   const data = useSelector((state) => {
     return state
   });
@@ -60,20 +60,15 @@ function Menu(props) {
     navigate('/OrderOnlineDetails', { state: item });
   }
 
-  // const deleteRes = (item) =>{
-  //   dispatch(removeoRestaurant(
-  //     item.id
-  //   ))
-  // debugger
-      // if (data.addtocart.cardData.length < 0) {
-      //   dispatch(removeoRestaurant(
-      //     item.id
-      //   ))
-      // }
-  // }
+  const cancelRes = (item) => {
+    dispatch(removeoRestaurant(
+      item.id
+    ))
+  }
 
   useEffect(() => {
   }, []);
+
 
   return (
     <div>
@@ -90,29 +85,44 @@ function Menu(props) {
                 <LocationSelect
                   menuData={item.branches}
                   handleDropdown={(e) => selectLoction(e, item.id)} />
-                <button
-                  disabled={data.addtocart.cardData.length > 0 ? true : false}
-                  onClick={() => goToRestaurantDetail(item)}>+</button>
-
-                {/* <button onClick={() => deleteRes(item)}>X</button> */}
-
-                <button
-                  className='editBtn'
-                  disabled={
-                    data.addRestaurant.restaurantData.length == 0 ? true :
-                      data.addtocart.cardData.length == 0 ? true :
-                        data.addRestaurant.restaurantData.some((x) => (x.id !== item.id))}
-                  onClick={() => goToSelectedMenu(item)}>
-                  <img src={require('../assets/img/edit.png')} alt="" />
-                </button>
-
+                {data.addRestaurant.restaurantData.some((x) => (x.id == item.id)) ?
+                  <button
+                    className='editBtn'
+                    disabled={
+                      data.addRestaurant.restaurantData.length == 0 ? true :
+                        data.addtocart.cardData.length == 0 ? true :
+                          data.addRestaurant.restaurantData.some((x) => (x.id !== item.id))
+                    }
+                    onClick={() => goToSelectedMenu(item)}>
+                    <img src={require('../assets/img/edit.png')} title='Edit' alt="" />
+                  </button>
+                  :
+                  <button
+                    className='addBtn'
+                    disabled={data.addRestaurant.restaurantData.some((x) => (x.id !== item.id))}
+                    onClick={() => goToRestaurantDetail(item)}>+</button>
+                }
+                {
+                  data.addRestaurant.restaurantData.some((x) => (x.id == item.id)) ?
+                    <button
+                      disabled={
+                        data.addtocart.cardData.length > 0 ? true : false}
+                      className='cancelBtn' onClick={() => cancelRes(item)}>
+                      <img src={require('../assets/img/cross.png')} alt=""
+                        title='If you want to disable button enable or choose other restaurant so do remove basket items' />
+                    </button>
+                    : null
+                }
               </li>
             ))}
           </ul>
         </div>
-      </div>
+      </div >
     </div >
   );
 }
+
+
+
 
 export default Menu;

@@ -167,7 +167,7 @@ function OrderOnline(props) {
                 <LocationSelect
                   menuData={em.branches}
                   handleDropdown={(e) => selectLoction(e, em.id)} />
-                <button onClick={() => goToReserved(em)}>+</button>
+                <button className='addBtn' onClick={() => goToReserved(em)}>+</button>
               </li>
             ))}
           </ul>

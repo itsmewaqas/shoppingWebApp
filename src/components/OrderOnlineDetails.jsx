@@ -60,12 +60,12 @@ function OrderOnlineDetails(props) {
                     <h1>{item.itemName} <span>${item.itemPrice}</span></h1>
                     {data.addtocart.cardData.filter(x => x.id == item.id).map(em => (
                       <div className='qtyCtrl'>
-                        <button className='miniBtn' onClick={() => removeExistingItem(item)}>-</button>
+                        <button onClick={() => removeExistingItem(item)}>-</button>
                         <p> Qty: {em.quantity}</p>
-                        <button className='miniBtn' onClick={() => addExistingItem(item)}>+</button>
+                        <button onClick={() => addExistingItem(item)}>+</button>
                       </div>
                     ))}
-                    <button className='btn2'
+                    <button className='addBtn2'
                       disabled={data.addtocart.cardData.some((x) => (x.id == item.id))}
                       onClick={() => addItem(item)}>Add To Cart</button>
                   </li>

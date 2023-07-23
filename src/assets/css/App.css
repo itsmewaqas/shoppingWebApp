@@ -369,21 +369,6 @@ ul.productList li button img{
   top: 6px;
   right: 10px;
 }
-.qtyCtrl{
-  list-style: none;
-  display: grid;
-  grid-template-columns: 50px 90px 50px;
-  flex-direction: row;
-  justify-content: center;
-}
-.miniBtn{
-  width: 30px !important;
-  font-size: 16px !important;
-  float: left !important;
-  text-align: center !important;
-  padding: 5px 0px !important;
-  margin: 15px 0px 15px 15px !important;
-}
 .testimonialsBlock{
   background-color: #F0EDD4;
   width: 100%;
@@ -1255,7 +1240,7 @@ ul.restaurantsList li button{
   border-radius: 10px;
   background-color: #f9eee4;
 }
-.reservationListBlock ul li button{
+.addBtn{
   border: none;
   width: 30px;
   padding: 6px;
@@ -1270,43 +1255,124 @@ ul.restaurantsList li button{
   font-family: 'LexendDeca-Regular';
   background-color: #f9ddcf;
   border-radius: 10px;
+  border: none;
 }
-.reservationListBlock ul li button:disabled {
+.addBtn img{
+  width: 18px !important;
+  height: 18px;
+  border-radius: 0px !important;
+  box-shadow: none !important;
+  margin: 0px !important;
+  background: transparent !important;
+}
+.addBtn:disabled {
   background: #d5d5d5;
   color: #555;
   cursor: not-allowed;
 }
-.reservationListBlock ul li .btn2 {
-  float: none;
-  display: block;
-  width: 90%;
-  margin: 15px auto 0px;
-  font-size: 14px;
-  position: absolute;
-  bottom: 10px;
-  left: 0px;
-  right: 0px;
-}
-.reservationListBlock ul li .btn2:disabled {
-  display: none;
-}
 .editBtn{
-  position: absolute;
-  right: 10px;
-  top: 5px;
-  margin: 0px !important;
-  background-color: transparent !important;
+  border: none;
+  width: 30px;
+  padding: 6px;
+  box-sizing: border-box;
+  margin:8px 4px 0px 0px;
+  float: right;
+  text-align: center;
+  font-size: 18px;
+  line-height: 18px;
+  cursor: pointer;
+  color: #747474;
+  font-family: 'LexendDeca-Regular';
+  background-color: #f9ddcf;
+  border-radius: 10px;
+  border: none;
 }
 .editBtn:disabled {
   display: none;
 }
 .editBtn img{
-    width: 24px !important;
-    height: 24px;
+    width: 18px !important;
+    height: 18px;
     border-radius: 0px !important;
     box-shadow: none !important;
     margin: 0px !important;
     background: transparent !important;
+}
+.cancelBtn{
+  position: absolute;
+  left: 10px;
+  top: 5px;
+  border: none;
+  width: 30px;
+  padding: 6px;
+  box-sizing: border-box;
+  margin:8px 4px 0px 0px;
+  float: right;
+  text-align: center;
+  font-size: 18px;
+  line-height: 18px;
+  cursor: pointer;
+  color: #747474;
+  font-family: 'LexendDeca-Regular';
+  background-color: #f9ddcf;
+  border-radius: 10px;
+  border: none;
+}
+.cancelBtn img{
+    width: 18px !important;
+    height: 18px;
+    border-radius: 0px !important;
+    box-shadow: none !important;
+    margin: 0px !important;
+    background: transparent !important;
+}
+.cancelBtn:disabled {
+  background: #d5d5d5;
+  color: #555;
+  cursor: not-allowed;
+}
+.addBtn2 {
+  padding: 6px;
+  box-sizing: border-box;
+  margin: 10px auto;
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  width: 94%;
+  line-height: 18px;
+  cursor: pointer;
+  color: #747474;
+  font-family: 'LexendDeca-Regular';
+  background-color: #f9ddcf;
+  border-radius: 10px;
+  border: none;
+}
+.addBtn2:disabled {
+  display: none;
+}
+.qtyCtrl{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.qtyCtrl button{
+  border: none;
+  width: 30px;
+  padding: 6px;
+  box-sizing: border-box;
+  margin:10px 10px;
+  text-align: center;
+  font-size: 18px;
+  line-height: 18px;
+  cursor: pointer;
+  color: #747474;
+  font-family: 'LexendDeca-Regular';
+  background-color: #f9ddcf;
+  border-radius: 10px;
+  border: none;
+}
+.qtyCtrl p{
+  padding: 18px 0px 0px !important;
 }
 .fetchBox{
   padding:15px;
