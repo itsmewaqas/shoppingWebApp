@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import { Scrollbars } from 'react-custom-scrollbars-2';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { addToCart, itemIncrement, itemDecrement, removeToCart, ordersuccess } from '../redux/Actions/index';
 
@@ -11,11 +12,15 @@ function Checkout(props) {
   const [email, Setemail] = useState('');
   const [cell, Setcell] = useState('');
   const [address, Setaddress] = useState('');
+  const [zipcode, Setzipcode] = useState('');
+  const [paymentMethod, SetpaymentMethod] = useState('');
 
   const [nameErr, SetnameErr] = useState("");
   const [emailErr, SetemailErr] = useState("");
   const [cellErr, SetcellErr] = useState("");
   const [addressErr, SetaddressErr] = useState("");
+  const [zipcodeErr, SetzipcodeErr] = useState("");
+  const [paymentMethodErr, SetpaymentMethodErr] = useState("");
 
   const [successBox, SetsuccessBox] = useState(false);
   const [finaldata, Setfinaldata] = useState({});
@@ -54,6 +59,8 @@ function Checkout(props) {
     SetemailErr("");
     SetcellErr("");
     SetaddressErr("");
+    SetzipcodeErr("");
+    SetpaymentMethodErr("");
   }
 
   const orderPlaced = () => {
@@ -69,25 +76,37 @@ function Checkout(props) {
     if (cell == undefined || cell == "" || (cellRgx.test(cell) == false)) {
       SetcellErr("enter your valid cell number");
     }
+    if (zipcode == undefined || zipcode == "" || zipcode.length < 5) {
+      SetzipcodeErr("enter your zipcode");
+    }
     if (address == undefined || address == "" || address.length <= 15) {
       SetaddressErr("enter your correct address");
+    }
+    if (paymentMethod == undefined || paymentMethod == "") {
+      SetpaymentMethodErr("Select payment method");
     }
     if (name != '' &&
       email != '' &&
       cell != '' &&
-      address != '') {
+      zipcode != '' &&
+      address != '' &&
+      paymentMethod != '') {
       const getdata = {
         name,
         email,
         cell,
-        address
+        zipcode,
+        address,
+        paymentMethod
       }
       Setfinaldata(getdata);
       setTimeout(() => {
         Setname('');
         Setemail('');
         Setcell('');
+        Setzipcode('');
         Setaddress('');
+        SetpaymentMethod('');
         dispatch(ordersuccess())
         SetsuccessBox(true);
       }, 1000);
@@ -105,19 +124,41 @@ function Checkout(props) {
     return subtotal;
   }
 
-  const tax = 13;
+  const tax = 3;
+  const discount = 5;
   const getSubTotal = (items) => {
     let subtotal = 0;
     items.forEach(item => {
       subtotal = subtotal + (item.itemPrice * item.quantity)
     })
-    return subtotal + tax;
+    return subtotal + tax - discount;
   }
 
   const goToHome = () => {
     navigate('/');
     SetsuccessBox(false);
   }
+
+
+
+  const [cardNumber, SetCardNumber] = useState('');
+  const [expiryDate, SetexpiryDate] = useState('');
+  const [cvc, Setcvc] = useState('');
+  const [cardHolderName, SetcardHolderName] = useState('');
+  const [getcard, Setgetcard] = useState({});
+
+
+  const [cardNumberErr, SetcardNumberErr] = useState('');
+  const [expiryDateErr, SetexpiryDateErr] = useState('');
+  const [cvcErr, SetcvcErr] = useState('');
+  const [cardHolderNameErr, SetcardHolderNameErr] = useState('');
+
+  // const handleChange = (event) => {
+  //   const { value } = event.target;
+  //   SetCardNumber(value);
+  //   setCardNumber(value.replace(/\d(?=\d{4})/g, '*'));
+  //   console.log(cardNumber);
+  // };
 
   // var number = 50000
   // var percent = 5
@@ -128,8 +169,63 @@ function Checkout(props) {
   // }
   // console.log(result);
 
+  function clearSubmission2() {
+    SetcardNumberErr("");
+    SetexpiryDateErr("");
+    SetcvcErr("");
+    SetcardHolderNameErr("");
+  }
+
+  const addCard = () => {
+    clearSubmission2();
+    if (cardNumber == undefined || cardNumber == "" || cardNumber.length <= 18) {
+      SetcardNumberErr("enter valid card number");
+    }
+    if (expiryDate == undefined || expiryDate == "") {
+      SetexpiryDateErr("enter expiry date");
+    }
+    if (cvc == undefined || cvc == "" || cvc.length <= 2) {
+      SetcvcErr("enter your cvc");
+    }
+    if (cardHolderName == undefined || cardHolderName == "") {
+      SetcardHolderNameErr("enter your card name");
+    }
+    if (cardNumber != '' &&
+      expiryDate != '' &&
+      cvc != '' &&
+      cardHolderName != '') {
+      const getcardinfo = {
+        cardNumber,
+        expiryDate,
+        cvc,
+        cardHolderName
+      }
+      Setgetcard(getcardinfo);
+      setTimeout(() => {
+        SetCardNumber('');
+        SetexpiryDate('');
+        Setcvc('');
+        SetcardHolderName('');
+      }, 1000);
+    }
+    else {
+      return false
+    }
+  }
+
   useEffect(() => {
+    console.log(getcard);
   }, [])
+
+  useEffect(() => {
+    if (cardNumber.length === 4)
+      SetCardNumber(cardNumber + " ")
+    else if (cardNumber.length === 9) {
+      SetCardNumber(cardNumber + " ")
+    } else if (cardNumber.length === 14) {
+      SetCardNumber(cardNumber + " ")
+    }
+  }, [cardNumber]);
 
   return (
     <div>
@@ -148,7 +244,122 @@ function Checkout(props) {
         <h3>Checkout</h3>
       </div>
       <div className='container clearfix'>
-        <div className="main-wrapper">
+        <div className='checkoutleftblock'>
+          <h2>Devilery information</h2>
+          {data.addtocart.cardData.length == 0 ? null :
+            <div>
+              <h2>before order placing fill required field otherwise order does not place!</h2>
+              <div className='fieldBox'>
+                <label>Name</label>
+                <input type='text' value={name} onChange={(e) => Setname(e.target.value)} />
+                <p className='error'>{nameErr}</p>
+              </div>
+              <div className='fieldBox'>
+                <label>Email</label>
+                <input type='email' value={email} onChange={(e) => Setemail(e.target.value)} />
+                <p className='error'>{emailErr}</p>
+              </div>
+              <div className='fieldBox'>
+                <label>Cell</label>
+                <input type='text' value={cell} onChange={(e) => Setcell(e.target.value)} />
+                <p className='error'>{cellErr}</p>
+              </div>
+              <div className='fieldBox'>
+                <label>Zip code</label>
+                <input type='text' value={zipcode} onChange={(e) => Setzipcode(e.target.value)} />
+                <p className='error'>{zipcodeErr}</p>
+              </div>
+              <div className='textareaBox'>
+                <label>Devilery Address</label>
+                <textarea rows="4" value={address} onChange={(e) => Setaddress(e.target.value)}></textarea>
+                <p className='error'>{addressErr}</p>
+              </div>
+              <h2>Select Payment Method</h2>
+              <div className='paymentSelectionBox'>
+                <label className=''>
+                  <input type="radio" checked={paymentMethod === 'cashOnDevilery'} value="cashOnDevilery" onChange={() => SetpaymentMethod('cashOnDevilery')} />
+                  Cash On Devilery</label>
+                <label className=''>
+                  <input type="radio" checked={paymentMethod === 'onlinePayment'} value="onlinePayment" onChange={() => SetpaymentMethod('onlinePayment')} />
+                  Online Payment </label>
+              </div>
+              <p className='error'>{paymentMethodErr}</p>
+              {paymentMethod == 'onlinePayment' ?
+                <div className='paymentform'>
+                  <h4>Add Card</h4>
+                  <div className='paymentfield1'>
+                    <label>Card Number</label>
+                    <input maxLength={19} className='paymentinput1' value={cardNumber} onChange={(e) => SetCardNumber(e.target.value)} type='text' placeholder='0000 0000 0000 0000' />
+                    <p className='error'>{cardNumberErr}</p>
+                  </div>
+                  <div className='paymentfield2'>
+                    <label>Expiry Date</label>
+                    <input className='paymentinput2' value={expiryDate} onChange={(e) => SetexpiryDate(e.target.value)} type='date' placeholder='MM/YY' />
+                    <p className='error'>{expiryDateErr}</p>
+                  </div>
+                  <div className='paymentfield2'>
+                    <label>CVC/CVV</label>
+                    <input maxLength={3}  className='paymentinput2' value={cvc} onChange={(e) => Setcvc(e.target.value)} type='text' placeholder='***' />
+                    <p className='error'>{cvcErr}</p>
+                  </div>
+                  <div className='paymentfield1'>
+                    <label>Card Holder Name</label>
+                    <input className='paymentinput1' value={cardHolderName} onChange={(e) => SetcardHolderName(e.target.value)} type='text' placeholder='Card Holder Fullname' />
+                    <p className='error'>{cardHolderNameErr}</p>
+                  </div>
+                  <button onClick={addCard}>Add Card</button>
+                </div>
+                : null}
+            </div>}
+        </div>
+        <div className='checkoutrightblock'>
+          <h3>Order Summary</h3>
+          <Scrollbars style={{ height: 400 }}>
+            {data.addtocart.cardData.length == 0 ? <h3>Cart Is Empty...</h3>
+              :
+              <ul>
+                {data.addtocart.cardData.length >= 0 ?
+                  data.addtocart.cardData?.map((pItem, index) => (
+                    <li key={index.toString()}>
+                      <img src={pItem.itemImg} alt="" />
+                      <p>{pItem.itemName}</p>
+                      <p>Price ${pItem.itemPrice}</p>
+                      <p className='paralimit'>{pItem.itemDescription}</p>
+                      <p>{pItem.itemType}</p>
+                      <dd className='qtyCtrl2'>
+                        <button onClick={() => removeExistingItem(pItem)}>-</button>
+                        <span>{pItem.quantity}</span>
+                        <button onClick={() => addExistingItem(pItem)}>+</button>
+                      </dd>
+                      <button className='checkclosebtn' onClick={() => removeItem(pItem.id)}>X</button>
+                    </li>
+                  ))
+                  : <p>Card is Empty</p>
+                }
+              </ul>
+            }
+          </Scrollbars>
+          <div className='billBox'>
+            <p>Items Quantity <span>{data.addtocart.cardData.length}</span></p>
+            <p>Sub Total <span>${getTotal(data.addtocart.cardData)}</span></p>
+            <p>Tax (3%) <span>${tax}</span></p>
+            <p>Discount (-5%) <span style={{ color: '#51ca51' }}>$-{discount}</span></p>
+            <p>Total <span style={{ color: '#51ca51' }}>${getSubTotal(data.addtocart.cardData)}</span></p>
+            <button
+              disabled={paymentMethod == 'onlinePayment' ? true : false}
+              onClick={() => orderPlaced()}>Confirm Order</button>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+        {/* <div className="main-wrapper">
           <div className="responsive-table">
             <table className='table'>
               <thead>
@@ -176,10 +387,8 @@ function Checkout(props) {
                         <td><img src={pItem.itemImg} alt="" /></td>
                         <td>{pItem.itemName}</td>
                         <td>{pItem.itemPrice}</td>
-                        {/* <td>{pItem.productDescription}</td>
-                        <td>{pItem.productType}</td> */}
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
+                        <td>{pItem.itemDescription}</td>
+                        <td>{pItem.itemType}</td>
                         <td>{pItem.quantity}</td>
                         <td><button className='tableCrros' onClick={() => removeItem(pItem.id)}>X</button></td>
                       </tr>
@@ -190,39 +399,9 @@ function Checkout(props) {
               }
             </table>
           </div>
-        </div>
+        </div> */}
+
       </div>
-      {data.addtocart.cardData.length == 0 ? null :
-        <div className='container clearfix'>
-          <h4>before order placing fill required field otherwise order does not place!</h4>
-          <div className='formBox'>
-            <div>
-              <label>Name</label>
-              <input type='text' value={name} onChange={(e) => Setname(e.target.value)} />
-              <p className='error'>{nameErr}</p>
-            </div>
-            <div>
-              <label>Email</label>
-              <input type='email' value={email} onChange={(e) => Setemail(e.target.value)} />
-              <p className='error'>{emailErr}</p>
-            </div>
-            <div>
-              <label>Cell</label>
-              <input type='text' value={cell} onChange={(e) => Setcell(e.target.value)} />
-              <p className='error'>{cellErr}</p>
-            </div>
-            <div>
-              <label>Address</label>
-              <input type='text' value={address} onChange={(e) => Setaddress(e.target.value)} />
-              <p className='error'>{addressErr}</p>
-            </div>
-          </div>
-          <dd className='checkOutAmmount'>Total :${getTotal(data.addtocart.cardData)}</dd>
-          <dd className='checkOutAmmount'>Tax (13%) :${tax}</dd>
-          <dd className='checkOutAmmount'>Products Quantity: {data.addtocart.cardData.length}</dd>
-          <dd className='checkOutAmmount'>Sub Total :${getSubTotal(data.addtocart.cardData)}</dd>
-          <button className='orderPlaceBtn' onClick={() => orderPlaced()}>Order Place</button>
-        </div>}
     </div>
   );
 }

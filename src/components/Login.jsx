@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import {
   useNavigate,
   Link
@@ -8,6 +8,14 @@ function Login() {
  
   let navigate = useNavigate();
 
+  const ref = useRef(null);
+
+  const data = ['Branch1', 'Branch2', 'Branch3', 'Branch4', 'Branch5', 'Branch6', 'Branch7', 'Branch8', 'Branch9'];
+
+  const scroll = (scrollOffset) => {
+    ref.current.scrollLeft += scrollOffset;
+  };
+
   useEffect(() => {
   }, [])
 
@@ -15,6 +23,16 @@ function Login() {
     <div>
       <div className='container'>
         <h3>Login</h3>
+
+        <button onClick={() => scroll(-20)}>LEFT</button>
+    <button onClick={() => scroll(20)}>RIGHT</button>
+    <div ref={ref} className='scrolleItems'>
+      {data.map((item, index) => (
+        <div key={index}>{item}</div>
+      ))}
+    </div>
+
+
       </div>
     </div>
   );

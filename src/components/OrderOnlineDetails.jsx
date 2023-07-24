@@ -57,7 +57,7 @@ function OrderOnlineDetails(props) {
                 {item.menuList.map((item, index) => (
                   <li key={index.toString()}>
                     <img src={item.itemImg} alt="" />
-                    <h1>{item.itemName} <span>${item.itemPrice}</span></h1>
+                    <h1>{item.itemName} <span>Price ${item.itemPrice}</span></h1>
                     {data.addtocart.cardData.filter(x => x.id == item.id).map(em => (
                       <div className='qtyCtrl'>
                         <button onClick={() => removeExistingItem(item)}>-</button>
