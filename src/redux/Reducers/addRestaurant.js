@@ -15,6 +15,10 @@ const selectRestaurant = (state = intialState, action) => {
                 ...state,
                 restaurantData: state.restaurantData.filter(x => x.id !== action.id),
             }
+        case "ORDERSUCCESS": return {
+            ...state,
+            restaurantData: []
+        }
         default: return state;
     }
 }

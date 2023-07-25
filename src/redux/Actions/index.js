@@ -43,6 +43,20 @@ export const addToRestaurant = (data) => {
 export const removeoRestaurant = (id) => {
   return {
     type: 'REMOVERESTAURANT',
-    id
+    id 
+  }
+}
+
+export const addUser = (data) => {
+  return {
+    type: 'ADDUSER',
+    payload: data
+  }
+}
+
+export const loginUser = (user) => {
+  return {
+    type: 'USERLOGIN',
+    payload: user
   }
 }

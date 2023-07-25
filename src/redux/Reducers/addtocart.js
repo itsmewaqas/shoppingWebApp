@@ -1,7 +1,7 @@
 
 const intialState = {
     cardData: []
-};
+}; 
 
 const cardItems = (state = intialState, action) => {
     switch (action.type) {

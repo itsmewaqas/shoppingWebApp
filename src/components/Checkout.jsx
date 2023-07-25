@@ -139,26 +139,17 @@ function Checkout(props) {
     SetsuccessBox(false);
   }
 
-
-
   const [cardNumber, SetCardNumber] = useState('');
   const [expiryDate, SetexpiryDate] = useState('');
   const [cvc, Setcvc] = useState('');
   const [cardHolderName, SetcardHolderName] = useState('');
-  const [getcard, Setgetcard] = useState({});
-
+  const [getcard, Setgetcard] = useState([]);
 
   const [cardNumberErr, SetcardNumberErr] = useState('');
   const [expiryDateErr, SetexpiryDateErr] = useState('');
   const [cvcErr, SetcvcErr] = useState('');
   const [cardHolderNameErr, SetcardHolderNameErr] = useState('');
 
-  // const handleChange = (event) => {
-  //   const { value } = event.target;
-  //   SetCardNumber(value);
-  //   setCardNumber(value.replace(/\d(?=\d{4})/g, '*'));
-  //   console.log(cardNumber);
-  // };
 
   // var number = 50000
   // var percent = 5
@@ -175,6 +166,8 @@ function Checkout(props) {
     SetcvcErr("");
     SetcardHolderNameErr("");
   }
+
+  var replacedcardNumber = null;
 
   const addCard = () => {
     clearSubmission2();
@@ -195,7 +188,7 @@ function Checkout(props) {
       cvc != '' &&
       cardHolderName != '') {
       const getcardinfo = {
-        cardNumber,
+        replacedcardNumber: cardNumber.replace(/.(?=.{4,}$)/g, '*'),
         expiryDate,
         cvc,
         cardHolderName
@@ -214,10 +207,6 @@ function Checkout(props) {
   }
 
   useEffect(() => {
-    console.log(getcard);
-  }, [])
-
-  useEffect(() => {
     if (cardNumber.length === 4)
       SetCardNumber(cardNumber + " ")
     else if (cardNumber.length === 9) {
@@ -226,6 +215,9 @@ function Checkout(props) {
       SetCardNumber(cardNumber + " ")
     }
   }, [cardNumber]);
+
+  useEffect(() => {
+  }, [])
 
   return (
     <div>
@@ -283,31 +275,42 @@ function Checkout(props) {
                   <input type="radio" checked={paymentMethod === 'onlinePayment'} value="onlinePayment" onChange={() => SetpaymentMethod('onlinePayment')} />
                   Online Payment </label>
               </div>
+              {getcard.length == 0 ? null
+                :
+                <div className='paymentSelectionBox'>
+                  <label><input type='radio' checked={paymentMethod === 'selectOnlinePayment'} onChange={() => SetpaymentMethod('selectOnlinePayment')} /> </label>
+                  <label>{getcard.replacedcardNumber}</label>
+                  <label>{getcard.expiryDate}</label>
+                  <label>{getcard.cvc}</label>
+                  <label>{getcard.cardHolderName}</label>
+                </div>}
               <p className='error'>{paymentMethodErr}</p>
               {paymentMethod == 'onlinePayment' ?
-                <div className='paymentform'>
-                  <h4>Add Card</h4>
-                  <div className='paymentfield1'>
-                    <label>Card Number</label>
-                    <input maxLength={19} className='paymentinput1' value={cardNumber} onChange={(e) => SetCardNumber(e.target.value)} type='text' placeholder='0000 0000 0000 0000' />
-                    <p className='error'>{cardNumberErr}</p>
+                <div>
+                  <div className='paymentform'>
+                    <h4>Add Card</h4>
+                    <div className='paymentfield1'>
+                      <label>Card Number</label>
+                      <input maxLength={19} className='paymentinput1' value={cardNumber} onChange={(e) => SetCardNumber(e.target.value)} type='text' placeholder='0000 0000 0000 0000' />
+                      <p className='error'>{cardNumberErr}</p>
+                    </div>
+                    <div className='paymentfield2'>
+                      <label>Expiry Date</label>
+                      <input className='paymentinput2' value={expiryDate} onChange={(e) => SetexpiryDate(e.target.value)} type='date' placeholder='MM/YY' />
+                      <p className='error'>{expiryDateErr}</p>
+                    </div>
+                    <div className='paymentfield2'>
+                      <label>CVC/CVV</label>
+                      <input maxLength={3} className='paymentinput2' value={cvc} onChange={(e) => Setcvc(e.target.value)} type='text' placeholder='***' />
+                      <p className='error'>{cvcErr}</p>
+                    </div>
+                    <div className='paymentfield1'>
+                      <label>Card Holder Name</label>
+                      <input className='paymentinput1' value={cardHolderName} onChange={(e) => SetcardHolderName(e.target.value)} type='text' placeholder='Card Holder Fullname' />
+                      <p className='error'>{cardHolderNameErr}</p>
+                    </div>
+                    <button onClick={addCard}>Add Card</button>
                   </div>
-                  <div className='paymentfield2'>
-                    <label>Expiry Date</label>
-                    <input className='paymentinput2' value={expiryDate} onChange={(e) => SetexpiryDate(e.target.value)} type='date' placeholder='MM/YY' />
-                    <p className='error'>{expiryDateErr}</p>
-                  </div>
-                  <div className='paymentfield2'>
-                    <label>CVC/CVV</label>
-                    <input maxLength={3}  className='paymentinput2' value={cvc} onChange={(e) => Setcvc(e.target.value)} type='text' placeholder='***' />
-                    <p className='error'>{cvcErr}</p>
-                  </div>
-                  <div className='paymentfield1'>
-                    <label>Card Holder Name</label>
-                    <input className='paymentinput1' value={cardHolderName} onChange={(e) => SetcardHolderName(e.target.value)} type='text' placeholder='Card Holder Fullname' />
-                    <p className='error'>{cardHolderNameErr}</p>
-                  </div>
-                  <button onClick={addCard}>Add Card</button>
                 </div>
                 : null}
             </div>}
@@ -346,7 +349,8 @@ function Checkout(props) {
             <p>Discount (-5%) <span style={{ color: '#51ca51' }}>$-{discount}</span></p>
             <p>Total <span style={{ color: '#51ca51' }}>${getSubTotal(data.addtocart.cardData)}</span></p>
             <button
-              disabled={paymentMethod == 'onlinePayment' ? true : false}
+              disabled={paymentMethod == 'onlinePayment' ? true :
+                paymentMethod == 'selectOnlinePayment' ? false : null}
               onClick={() => orderPlaced()}>Confirm Order</button>
           </div>
         </div>
