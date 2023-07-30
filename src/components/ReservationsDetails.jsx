@@ -346,123 +346,120 @@ function Reservations(props) {
             </div>
           </div>
         </dd>}
-      <div className='reservationsBlock'>
-        <div className='container clearfix'>
-          <div className='reservationFormBlock1'>
-            <h3>Reservation</h3>
-            {formStep1 &&
-              <div className='reservationsFormBlock'>
-                <div>
-                  <label className='venueSelect'>
-                    <input type="radio" checked={seating === 'Indoorseating'} value="Indoorseating" onChange={() => Setseating('Indoorseating')} />
-                    Indoor Seating</label>
-                  <label className='venueSelect'>
-                    <input type="radio" checked={seating === 'Outdoorseating'} value="Outdoorseating" onChange={() => Setseating('Outdoorseating')} />
-                    Outdoor Seating </label>
-                  <div><p className='error'>{seatingErr}</p></div>
-                </div>
-                <div>
-                  <label className='venueSelect'>Number Of Diners</label>
-                  <CustomDrop
-                    categoryIcon={require('../assets/img/peopleIcon.png')}
-                    widthSet={{ width: "50%", float: 'left' }}
-                    data={numberOfMembers}
-                    selectFinalValue={chooseMember || 'Select No Of Diners'}
-                    selectRandomValue={(item) => selectMember(item)}
-                  />
-                  <p className='error'>{chooseMemberErr}</p>
-                </div>
-                <div>
-                  <label className='venueSelect'>Time</label>
-                  <CustomDrop
-                    categoryIcon={require('../assets/img/timeIcon.png')}
-                    widthSet={{ width: "50%", float: 'left' }}
-                    data={selectTime}
-                    selectFinalValue={chooseTime || 'Select Time'}
-                    selectRandomValue={(item) => seletcTime(item)}
-                  />
-                  <p className='error'>{chooseTimeErr}</p>
-                </div>
-                <div>
-                  <label className='venueSelect'>Occasion</label>
-                  <CustomDrop
-                    categoryIcon={require('../assets/img/occasionIcon.png')}
-                    data={occasion}
-                    selectFinalValue={chooseOccasion || 'Occasion'}
-                    selectRandomValue={(item) => selectOccasion(item)}
-                  />
-                  <p className='error'>{chooseOccasionErr}</p>
-                </div>
-                <div>
-                  <label className='venueSelect'>Date</label>
-                  <input type="date" step="2" className='customDataStyle' value={reservedDate} onChange={(e) => SetreservedDate(e.target.value)} />
-                  <p className='error'>{reservedDateErr}</p>
-                </div>
-                <div></div>
-                <div>
-                  <button className='reserveBtn' onClick={() => step1()}>Next</button>
-                </div>
-              </div>}
-            {formStep2 &&
-              <div className='reservationsFormBlock'>
-                <div className='reservationsForm'>
-                  <label>First Name</label>
-                  <input type="text" value={firstName} onChange={(e) => SetfirstName(e.target.value)} />
-                  <p className='error'>{firstNameErr}</p>
-                </div>
-                <div className='reservationsForm'>
-                  <label>Last Name</label>
-                  <input type="text" value={lastName} onChange={(e) => SetlastName(e.target.value)} />
-                  <p className='error'>{lastNameErr}</p>
-                </div>
-                <div className='reservationsForm'>
-                  <label>Email</label>
-                  <input type="text" value={email} onChange={(e) => Setemail(e.target.value)} />
-                  <p className='error'>{emailErr}</p>
-                </div>
-                <div className='reservationsForm'>
-                  <label>Cell</label>
-                  <input type="text" value={cell} onChange={(e) => Setcell(e.target.value)} />
-                  <p className='error'>{cellErr}</p>
-                </div>
-                <div className='reservationsForm'>
-                  <label>Special Request</label>
-                  <textarea cols={30} rows={5} value={specialRequest} onChange={(e) => SetspecialRequest(e.target.value)}></textarea>
-                  <p className='error'>{specialRequestErr}</p>
-                </div>
-                <div></div>
-                <div>
-                  <button className='reserveBtn' onClick={() => reservedFunc()}>Reserved</button>
-                </div>
+      <div className='container clearfix'>
+        <h3 style={{ marginBottom: '15px' }}>Reservation</h3>
+        <div className='checkoutleftblock'>
+          <h2>Reservation Details</h2>
+          {formStep1 &&
+            <div>
+              <div className='radiolist'>
+                <label>
+                  <input type="radio" checked={seating === 'Indoorseating'} value="Indoorseating" onChange={() => Setseating('Indoorseating')} />
+                  Indoor Seating</label>
+                <label>
+                  <input type="radio" checked={seating === 'Outdoorseating'} value="Outdoorseating" onChange={() => Setseating('Outdoorseating')} />
+                  Outdoor Seating </label>
               </div>
-            }
-          </div>
-          <div className='reservationFormBlock2'>
-            <div className='fetchBox'>
-              <h3>Restaurant Details</h3>
-              <ul className='fetchlist'>
-                <li><img src={getResData.picture} alt="" /></li>
-                <li><span>Name: {getResData.name}</span></li>
-                <li><span>Branch: {getResData.branches}</span></li>
-                <li><span>Rating: {getResData.rating}</span></li>
-                <li><span>EditInfo</span></li>
-                <li><button className='editInfoBtn' onClick={() => editRestaurant()}><img className='fetchlistImg2' src={require('../assets/img/editInfo.png')} /></button></li>
-              </ul>
+              <div className='divstyle'><p className='error'>{seatingErr}</p></div>
+            <div className='gridContainer1'>
+              <div>
+                <label className='venueSelect'>Number Of Diners</label>
+                <CustomDrop
+                  categoryIcon={require('../assets/img/peopleIcon.png')}
+                  widthSet={{ width: "50%", float: 'left' }}
+                  data={numberOfMembers}
+                  selectFinalValue={chooseMember || 'Select No Of Diners'}
+                  selectRandomValue={(item) => selectMember(item)}
+                />
+                <p className='error'>{chooseMemberErr}</p>
+              </div>
+              <div>
+                <label className='venueSelect'>Time</label>
+                <CustomDrop
+                  categoryIcon={require('../assets/img/timeIcon.png')}
+                  widthSet={{ width: "50%", float: 'left' }}
+                  data={selectTime}
+                  selectFinalValue={chooseTime || 'Select Time'}
+                  selectRandomValue={(item) => seletcTime(item)}
+                />
+                <p className='error'>{chooseTimeErr}</p>
+              </div>
+              <div>
+                <label className='venueSelect'>Occasion</label>
+                <CustomDrop
+                  categoryIcon={require('../assets/img/occasionIcon.png')}
+                  data={occasion}
+                  selectFinalValue={chooseOccasion || 'Occasion'}
+                  selectRandomValue={(item) => selectOccasion(item)}
+                />
+                <p className='error'>{chooseOccasionErr}</p>
+              </div>
+              <div>
+                <label className='venueSelect'>Date</label>
+                <input type="date" step="2" className='customDataStyle' value={reservedDate} onChange={(e) => SetreservedDate(e.target.value)} />
+                <p className='error'>{reservedDateErr}</p>
+              </div>
+              </div>
+              <div>
+                <button className='reserveBtn' onClick={() => step1()}>Next</button>
+              </div>
+            </div>}
+          {formStep2 &&
+            <div>
+              <div className='gridContainer1'>
+              <div className='fieldBox'>
+                <label>First Name</label>
+                <input type="text" value={firstName} onChange={(e) => SetfirstName(e.target.value)} />
+                <p className='error'>{firstNameErr}</p>
+              </div>
+              <div className='fieldBox'>
+                <label>Last Name</label>
+                <input type="text" value={lastName} onChange={(e) => SetlastName(e.target.value)} />
+                <p className='error'>{lastNameErr}</p>
+              </div>
+              <div className='fieldBox'>
+                <label>Email</label>
+                <input type="text" value={email} onChange={(e) => Setemail(e.target.value)} />
+                <p className='error'>{emailErr}</p>
+              </div>
+              <div className='fieldBox'>
+                <label>Cell</label>
+                <input type="text" value={cell} onChange={(e) => Setcell(e.target.value)} />
+                <p className='error'>{cellErr}</p>
+              </div>
+              <div className='textareaBox'>
+                <label>Special Request</label>
+                <textarea cols={30} rows={5} value={specialRequest} onChange={(e) => SetspecialRequest(e.target.value)}></textarea>
+                <p className='error'>{specialRequestErr}</p>
+              </div>
+              </div>
+              <div>
+                <button className='reserveBtn' onClick={() => reservedFunc()}>Reserved</button>
+              </div>
             </div>
-            {formStep2 &&
-              <div className='fetchBox'>
-                <h3>Booking Details</h3>
-                <ul className='fetchlist2'>
-                  <li><span>{seating}</span></li>
-                  <li><img src={require('../assets/img/peopleIcon.png')} /><span>{chooseMember}</span></li>
-                  <li><img src={require('../assets/img/timeIcon.png')} /><span>{chooseTime}</span></li>
-                  <li><img src={require('../assets/img/occasionIcon.png')} /><span>{chooseOccasion}</span></li>
-                  <li><img src={require('../assets/img/dateIcon.png')} /><span>{reservedDate}</span></li>
-                  <li><button className='editInfoBtn' onClick={() => editInfo()}><img src={require('../assets/img/editInfo.png')} /></button></li>
-                </ul>
-              </div>
-            }
+          }
+        </div>
+        <div className='checkoutrightblock'>
+          <h3>Restaurant & Booking Details</h3>
+          <div className='fetchInfo1'>
+            <img src={getResData.picture} alt="" />
+            <p>Name: <span>{getResData.name}</span></p>
+            <p>Branch: <span>{getResData.branches}</span></p>
+            <p>Rating: <span>{getResData.rating}</span></p>
+            <button onClick={() => editRestaurant()}>
+              <img src={require('../assets/img/edit.png')} /></button>
           </div>
+          {formStep2 &&
+              <div className='fetchInfo1'>
+                <p>&nbsp;</p>
+                <p>Seating: <span>{seating}</span></p>
+                <p>Members: <span><img src={require('../assets/img/peopleIcon.png')} /> {chooseMember}</span></p>
+                <p>Time: <span><img src={require('../assets/img/timeIcon.png')} /> {chooseTime}</span></p>
+                <p>Occasion: <span><img src={require('../assets/img/occasionIcon.png')} /> {chooseOccasion}</span></p>
+                <p>Date: <span><img src={require('../assets/img/dateIcon.png')} /> {reservedDate}</span></p>
+                <button onClick={() => editInfo()}><img src={require('../assets/img/edit.png')} /></button>
+              </div>
+          }
         </div>
       </div>
     </div>

@@ -90,7 +90,6 @@ function Home() {
           <ul className='testimonialsList'>
             {testimonialData?.map((item, index) => (
               <li key={index.toString()}>
-                <h4>{item.tesTitle}</h4>
                 <img src={item.tesImg} alt="" />
                 <h5>{item.tesName}</h5>
                 <p>{item.tesDescription}</p>

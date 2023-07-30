@@ -8,6 +8,7 @@ import RestaurantList from '../sharedComponents/RestaurantList';
 import LocationSelect from '../sharedComponents/LocationSelect';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Pagination from 'rc-pagination';
 
 function OrderOnline(props) {
 
@@ -68,8 +69,13 @@ function OrderOnline(props) {
   const [getid, Setgetid] = useState('');
 
   const selectLoction = (e, id) => {
-    Setgetid(id); 
-    SetgetLocation(e.target.value);
+    if (e.target.value == "Select") {
+      notify()
+    }
+    else {
+      Setgetid(id);
+      SetgetLocation(e.target.value);
+    }
   };
 
   const goToReserved = (em) => {
@@ -119,6 +125,41 @@ function OrderOnline(props) {
     }
   }
 
+
+  //pagination code start
+  const [perPage, setPerPage] = useState(10);
+  const [size, setSize] = useState(perPage);
+  const [current, setCurrent] = useState(1);
+
+  const PerPageChange = (value) => {
+    setSize(value);
+    const newPerPage = Math.ceil(datalist.length / value);
+    if (current > newPerPage) {
+      setCurrent(newPerPage);
+    }
+  }
+
+  const getData = (current, pageSize) => {
+    return datalist.slice((current - 1) * pageSize, current * pageSize);
+  };
+
+  const PaginationChange = (page, pageSize) => {
+    setCurrent(page);
+    setSize(pageSize)
+  }
+
+  const PrevNextArrow = (current, type, originalElement) => {
+    if (type === 'prev') {
+      return <button className='buttonstyle'><img src={require('../assets/img/prev.png')} alt='' /></button>;
+    }
+    if (type === 'next') {
+      return <button className='buttonstyle'><img src={require('../assets/img/next.png')} alt='' /></button>;
+    }
+    return originalElement;
+  }
+
+  //pagination code end
+
   useEffect(() => {
   }, [])
 
@@ -159,19 +200,32 @@ function OrderOnline(props) {
         </div>
         <div className='reservationListBlock'>
           <ul>
-            {datalist.map((em, index) => (
+            {getData(current, size).map((em, index) => (
               <li key={index.toString()}>
                 <img src={em.picture} alt="" />
                 <h1>{em.name}
-                  <span><img src={require('../assets/img/star.png')} alt='' /> {em.rating}</span></h1>
+                  <span><img src={require('../assets/img/star2.png')} alt='' /> {em.rating}</span></h1>
                 <LocationSelect
                   menuData={em.branches}
                   handleDropdown={(e) => selectLoction(e, em.id)} />
-                <button className='addBtn' onClick={() => goToReserved(em)}>+</button>
+                <button className='addBtn' onClick={() => goToReserved(em)}>
+                  <img src={require('../assets/img/add.png')} title='Add' alt="" />
+                </button>
               </li>
             ))}
           </ul>
         </div>
+        <Pagination
+          className="pagination-data"
+          showTotal={(total, range) => `Showing ${range[0]}-${range[1]} of ${total}`}
+          onChange={PaginationChange}
+          total={datalist.length}
+          current={current}
+          pageSize={size}
+          showSizeChanger={false}
+          itemRender={PrevNextArrow}
+          onShowSizeChange={PerPageChange}
+        />
       </div>
     </div>
   );

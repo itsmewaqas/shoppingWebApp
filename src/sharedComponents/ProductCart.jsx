@@ -24,7 +24,7 @@ function ProductCart(props) {
     ))
   }
 
-  useEffect(() => {
+  useEffect(() => { 
   }, [])
 
   return (

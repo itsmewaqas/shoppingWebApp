@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { connect, useSelector, useDispatch } from 'react-redux';
-import { removeToCart} from '../redux/Actions/index';
+import { removeToCart } from '../redux/Actions/index';
 
 function Header(props) {
 
@@ -65,45 +65,47 @@ function Header(props) {
     // }, [])
 
     return (
-        <header>
-            <a className='hamburgerMenu' onClick={() => resMenu()}><img src={require('../assets/img/hamburgerMenu.png')} alt='' /></a>
-            <a className='logo'><img src={require('../assets/img/logo.png')} /></a>
-            <div className={responsiveMenu}>
-                <ul>
-                    <li><NavLink className={({ isActive }) => isActive ? 'activeItem' : ''} to="/">Home</NavLink ></li>
-                    <li><NavLink className={({ isActive }) => isActive ? 'activeItem' : ''} to="/About">About</NavLink></li>
-                    <li><NavLink className={({ isActive }) => isActive ? 'activeItem' : ''} to="/Menu">Menu</NavLink></li>
-                    <li><NavLink className={({ isActive }) => isActive ? 'activeItem' : ''} to="/Reservations">Reservations</NavLink></li>
-                    <li><NavLink className={({ isActive }) => isActive ? 'activeItem' : ''} to="/OrderOnline">OrderOnline</NavLink></li>
-                    <li><NavLink className={({ isActive }) => isActive ? 'activeItem' : ''} to="/Login">Login</NavLink></li>
-                    <li><a onClick={() => showCart()}><img src={require('../assets/img/shoppingCart.png')} alt='' /> <span>{data.addtocart.cardData.length}</span></a></li>
-                </ul>
-                {cartList && <div className='cartMenu' ref={catMenu}>
-                    {data.addtocart.cardData.length == 0 ? <dd>Cart Is Empty...</dd>
-                        :
-                        <div>
-                            <Scrollbars style={{ height: 250 }}>
-                                <ul>
-                                    {data.addtocart.cardData.length >= 0 ?
-                                        data.addtocart.cardData?.map((pItem, index) => (
-                                            <li key={index.toString()}>
-                                                <img src={pItem.itemImg} alt="" />
-                                                <p>{pItem.itemName}
-                                                    <span>Price: ${pItem.itemPrice}</span></p>
-                                                <button onClick={() => removeItem(pItem.id)}>X</button>
-                                            </li>
-                                        ))
-                                        : <p>Card is Empty</p>
-                                    }
-                                </ul>
-                            </Scrollbars>
-                            <dd>Total Amount :${getTotal(data.addtocart.cardData)}</dd>
-                            <button className='checkOutBtn' onClick={() => viewToCheckout()}>Proceed To Checkout</button>
-                        </div>
-                    }
-                </div>}
-            </div>
-        </header>
+        <div className='headerMain'>
+            <header>
+                <a className='hamburgerMenu' onClick={() => resMenu()}><img src={require('../assets/img/hamburgerMenu.png')} alt='' /></a>
+                <a className='logo'><img src={require('../assets/img/logoNew.gif')} /></a>
+                <div className={responsiveMenu}>
+                    <ul>
+                        <li><NavLink className={({ isActive }) => isActive ? 'activeItem' : ''} to="/">Home</NavLink ></li>
+                        <li><NavLink className={({ isActive }) => isActive ? 'activeItem' : ''} to="/About">About</NavLink></li>
+                        <li><NavLink className={({ isActive }) => isActive ? 'activeItem' : ''} to="/Menu">Menu</NavLink></li>
+                        <li><NavLink className={({ isActive }) => isActive ? 'activeItem' : ''} to="/Reservations">Reservations</NavLink></li>
+                        <li><NavLink className={({ isActive }) => isActive ? 'activeItem' : ''} to="/OrderOnline">OrderOnline</NavLink></li>
+                        <li><NavLink className={({ isActive }) => isActive ? 'activeItem' : ''} to="/Login">Login</NavLink></li>
+                        <li><a onClick={() => showCart()}><img src={require('../assets/img/shoppingCart.png')} alt='' /> <span>{data.addtocart.cardData.length}</span></a></li>
+                    </ul>
+                    {cartList && <div className='cartMenu' ref={catMenu}>
+                        {data.addtocart.cardData.length == 0 ? <dd>Cart Is Empty...</dd>
+                            :
+                            <div>
+                                <Scrollbars style={{ height: 250 }}>
+                                    <ul>
+                                        {data.addtocart.cardData.length >= 0 ?
+                                            data.addtocart.cardData?.map((pItem, index) => (
+                                                <li key={index.toString()}>
+                                                    <img src={pItem.itemImg} alt="" />
+                                                    <p>{pItem.itemName}
+                                                        <span>Price: ${pItem.itemPrice}</span></p>
+                                                    <button onClick={() => removeItem(pItem.id)}>X</button>
+                                                </li>
+                                            ))
+                                            : <p>Card is Empty</p>
+                                        }
+                                    </ul>
+                                </Scrollbars>
+                                <dd>Total Amount :${getTotal(data.addtocart.cardData)}</dd>
+                                <button className='checkOutBtn' onClick={() => viewToCheckout()}>Proceed To Checkout</button>
+                            </div>
+                        }
+                    </div>}
+                </div>
+            </header>
+        </div>
     );
 }
 

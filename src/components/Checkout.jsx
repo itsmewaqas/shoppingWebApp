@@ -241,43 +241,48 @@ function Checkout(props) {
           {data.addtocart.cardData.length == 0 ? null :
             <div>
               <h2>before order placing fill required field otherwise order does not place!</h2>
-              <div className='fieldBox'>
-                <label>Name</label>
-                <input type='text' value={name} onChange={(e) => Setname(e.target.value)} />
-                <p className='error'>{nameErr}</p>
+              <div className='gridContainer1'>
+                <div className='fieldBox'>
+                  <label>Name</label>
+                  <input type='text' value={name} onChange={(e) => Setname(e.target.value)} />
+                  <p className='error'>{nameErr}</p>
+                </div>
+                <div className='fieldBox'>
+                  <label>Email</label>
+                  <input type='email' value={email} onChange={(e) => Setemail(e.target.value)} />
+                  <p className='error'>{emailErr}</p>
+                </div>
+                <div className='fieldBox'>
+                  <label>Cell</label>
+                  <input type='text' value={cell} onChange={(e) => Setcell(e.target.value)} />
+                  <p className='error'>{cellErr}</p>
+                </div>
+                <div className='fieldBox'>
+                  <label>Zip code</label>
+                  <input type='text' value={zipcode} onChange={(e) => Setzipcode(e.target.value)} />
+                  <p className='error'>{zipcodeErr}</p>
+                </div>
+                <div className='textareaBox'>
+                  <label>Devilery Address</label>
+                  <textarea rows="4" value={address} onChange={(e) => Setaddress(e.target.value)}></textarea>
+                  <p className='error'>{addressErr}</p>
+                </div>
+                <div className='radiolist'>
+                  <label>Select Payment Method</label>
+                  <div className='radiolist'>
+                    <label className=''>
+                      <input type="radio" checked={paymentMethod === 'cashOnDevilery'} value="cashOnDevilery" onChange={() => SetpaymentMethod('cashOnDevilery')} />
+                      Cash On Devilery</label>
+                    <label className=''>
+                      <input type="radio" checked={paymentMethod === 'onlinePayment'} value="onlinePayment" onChange={() => SetpaymentMethod('onlinePayment')} />
+                      Online Payment </label>
+                  </div>
+                </div>
               </div>
-              <div className='fieldBox'>
-                <label>Email</label>
-                <input type='email' value={email} onChange={(e) => Setemail(e.target.value)} />
-                <p className='error'>{emailErr}</p>
-              </div>
-              <div className='fieldBox'>
-                <label>Cell</label>
-                <input type='text' value={cell} onChange={(e) => Setcell(e.target.value)} />
-                <p className='error'>{cellErr}</p>
-              </div>
-              <div className='fieldBox'>
-                <label>Zip code</label>
-                <input type='text' value={zipcode} onChange={(e) => Setzipcode(e.target.value)} />
-                <p className='error'>{zipcodeErr}</p>
-              </div>
-              <div className='textareaBox'>
-                <label>Devilery Address</label>
-                <textarea rows="4" value={address} onChange={(e) => Setaddress(e.target.value)}></textarea>
-                <p className='error'>{addressErr}</p>
-              </div>
-              <h2>Select Payment Method</h2>
-              <div className='paymentSelectionBox'>
-                <label className=''>
-                  <input type="radio" checked={paymentMethod === 'cashOnDevilery'} value="cashOnDevilery" onChange={() => SetpaymentMethod('cashOnDevilery')} />
-                  Cash On Devilery</label>
-                <label className=''>
-                  <input type="radio" checked={paymentMethod === 'onlinePayment'} value="onlinePayment" onChange={() => SetpaymentMethod('onlinePayment')} />
-                  Online Payment </label>
-              </div>
+
               {getcard.length == 0 ? null
                 :
-                <div className='paymentSelectionBox'>
+                <div className='radiolist'>
                   <label><input type='radio' checked={paymentMethod === 'selectOnlinePayment'} onChange={() => SetpaymentMethod('selectOnlinePayment')} /> </label>
                   <label>{getcard.replacedcardNumber}</label>
                   <label>{getcard.expiryDate}</label>
@@ -288,7 +293,6 @@ function Checkout(props) {
               {paymentMethod == 'onlinePayment' ?
                 <div>
                   <div className='paymentform'>
-                    <h4>Add Card</h4>
                     <div className='paymentfield1'>
                       <label>Card Number</label>
                       <input maxLength={19} className='paymentinput1' value={cardNumber} onChange={(e) => SetCardNumber(e.target.value)} type='text' placeholder='0000 0000 0000 0000' />

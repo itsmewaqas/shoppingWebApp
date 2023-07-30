@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { addToRestaurant, removeoRestaurant } from '../redux/Actions/index';
+import Pagination from 'rc-pagination';
 
 function Menu(props) {
 
@@ -29,8 +30,13 @@ function Menu(props) {
   const [getid, Setgetid] = useState('');
 
   const selectLoction = (e, id) => {
-    Setgetid(id);
-    SetgetLocation(e.target.value);
+    if (e.target.value == "Select") {
+      notify()
+    }
+    else {
+      Setgetid(id);
+      SetgetLocation(e.target.value);
+    }
   };
 
   const goToRestaurantDetail = (item) => {
@@ -66,6 +72,40 @@ function Menu(props) {
     ))
   }
 
+  //pagination code start
+  const [perPage, setPerPage] = useState(10);
+  const [size, setSize] = useState(perPage);
+  const [current, setCurrent] = useState(1);
+
+  const PerPageChange = (value) => {
+    setSize(value);
+    const newPerPage = Math.ceil(RestaurantList.length / value);
+    if (current > newPerPage) {
+      setCurrent(newPerPage);
+    }
+  }
+
+  const getData = (current, pageSize) => {
+    return RestaurantList.slice((current - 1) * pageSize, current * pageSize);
+  };
+
+  const PaginationChange = (page, pageSize) => {
+    setCurrent(page);
+    setSize(pageSize)
+  }
+
+  const PrevNextArrow = (current, type, originalElement) => {
+    if (type === 'prev') {
+      return <button className='buttonstyle'><img src={require('../assets/img/prev.png')} alt='' /></button>;
+    }
+    if (type === 'next') {
+      return <button className='buttonstyle'><img src={require('../assets/img/next.png')} alt='' /></button>;
+    }
+    return originalElement;
+  }
+
+  //pagination code end
+
   useEffect(() => {
   }, []);
 
@@ -77,11 +117,11 @@ function Menu(props) {
         <h3>Select Restaurant</h3>
         <div className='reservationListBlock' style={{ marginTop: '50px' }}>
           <ul>
-            {RestaurantList.map((item, index) => (
+            {getData(current, size).map((item, index) => (
               <li key={index.toString()}>
                 <img src={item.picture} alt="" />
                 <h1>{item.name}
-                  <span><img src={require('../assets/img/star.png')} alt='' /> {item.rating}</span></h1>
+                  <span><img src={require('../assets/img/star2.png')} alt='' /> {item.rating}</span></h1>
                 <LocationSelect
                   menuData={item.branches}
                   handleDropdown={(e) => selectLoction(e, item.id)} />
@@ -94,30 +134,40 @@ function Menu(props) {
                           data.addRestaurant.restaurantData.some((x) => (x.id !== item.id))
                     }
                     onClick={() => goToSelectedMenu(item)}>
-                    <img src={require('../assets/img/edit.png')} title='Edit' alt="" />
+                    <img src={require('../assets/img/basket.png')} title='Edit' alt="" />
                   </button>
                   :
                   <button
                     className='addBtn'
                     disabled={data.addRestaurant.restaurantData.some((x) => (x.id !== item.id))}
-                    onClick={() => goToRestaurantDetail(item)}>+</button>
+                    onClick={() => goToRestaurantDetail(item)}>
+                    <img src={require('../assets/img/add.png')} title='Add' alt="" />
+                  </button>
                 }
-                {
-                  data.addRestaurant.restaurantData.some((x) => (x.id == item.id)) ?
-                    <button
-                      disabled={
-                        data.addtocart.cardData.length > 0 ? true : false}
-                      className='cancelBtn' onClick={() => cancelRes(item)}>
-                      <img src={require('../assets/img/cross.png')} alt=""
-                        title='If you want to disable button enable or choose other restaurant so do remove basket items' />
-                    </button>
-                    : null
-                }
+                {data.addRestaurant.restaurantData.some((x) => (x.id == item.id)) ?
+                  <button
+                    disabled={
+                      data.addtocart.cardData.length > 0 ? true : false}
+                    className='cancelBtn' onClick={() => cancelRes(item)}>
+                    <img src={require('../assets/img/reset.png')} title='Reset' alt="" />
+                  </button>
+                  : null}
               </li>
             ))}
           </ul>
         </div>
-      </div >
+        <Pagination
+          className="pagination-data"
+          showTotal={(total, range) => `Showing ${range[0]}-${range[1]} of ${total}`}
+          onChange={PaginationChange}
+          total={RestaurantList.length}
+          current={current}
+          pageSize={size}
+          showSizeChanger={false}
+          itemRender={PrevNextArrow}
+          onShowSizeChange={PerPageChange}
+        />
+      </div>
     </div >
   );
 }
