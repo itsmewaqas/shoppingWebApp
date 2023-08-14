@@ -430,3 +430,37 @@ export default App;
 
 
       https://bobbyhadz.com/blog/react-check-if-array-is-empty#:~:text=To%20check%20if%20an%20array,%2C%20it%20isn't%20empty.
+
+
+
+
+
+
+
+
+      filter checkbox 
+
+        const [checkList, SetcheckList] = useState([]);
+  const [filteredcheckList, setFilteredcheckList] = useState([]);
+
+
+  const handleChange = e => {
+    const { checked, value } = e.currentTarget;
+    SetcheckList(
+      prev => checked
+        ? [...prev, value]
+        : prev.filter(val => val !== value)
+    );
+
+    
+  };
+
+  console.log('checkList', checkList);
+
+  useEffect(() => {
+    setFilteredcheckList(
+      RestaurantList.filter(x =>
+        checkList.some(category => category === x.category)
+      )
+    );
+  }, [checkList]);

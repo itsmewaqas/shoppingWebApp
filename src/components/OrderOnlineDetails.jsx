@@ -49,7 +49,6 @@ function OrderOnlineDetails(props) {
     <div>
       <div className='container clearfix'>
         <h3>{itemDetail.name}</h3>
-
         <div className='reservationListBlock' style={{ marginTop: '50px' }}>
           <ul>
             {filterMenu.map((item, index) => (

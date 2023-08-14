@@ -117,7 +117,7 @@ function Menu(props) {
         <h3>Select Restaurant</h3>
         <div className='reservationListBlock' style={{ marginTop: '50px' }}>
           <ul>
-            {getData(current, size).map((item, index) => (
+            {getData(current, size).map((item, index) => ( 
               <li key={index.toString()}>
                 <img src={item.picture} alt="" />
                 <h1>{item.name}

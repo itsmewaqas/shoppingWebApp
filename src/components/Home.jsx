@@ -79,10 +79,10 @@ function Home() {
         <h2>This Weeks specials!<button className='btn1' onClick={() => gotoMenu()}>Online Menu</button></h2>
       </div>
       <div className='container'>
-        <ProductCart
-          data={finalData}
+        {/* <ProductCart
+          data={finalData} 
           addToCart={(item) => addItem(item)}
-        />
+        /> */}
       </div>
       <div className='testimonialsBlock'>
         <div className='container'>

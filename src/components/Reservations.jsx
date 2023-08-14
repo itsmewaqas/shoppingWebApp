@@ -125,7 +125,6 @@ function OrderOnline(props) {
     }
   }
 
-
   //pagination code start
   const [perPage, setPerPage] = useState(10);
   const [size, setSize] = useState(perPage);
