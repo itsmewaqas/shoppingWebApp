@@ -9,7 +9,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { addToRestaurant, removeoRestaurant } from '../redux/Actions/index';
-import Pagination from 'rc-pagination';
 
 function Menu(props) {
 
@@ -72,40 +71,6 @@ function Menu(props) {
     ))
   }
 
-  //pagination code start
-  const [perPage, setPerPage] = useState(10);
-  const [size, setSize] = useState(perPage);
-  const [current, setCurrent] = useState(1);
-
-  const PerPageChange = (value) => {
-    setSize(value);
-    const newPerPage = Math.ceil(RestaurantList.length / value);
-    if (current > newPerPage) {
-      setCurrent(newPerPage);
-    }
-  }
-
-  const getData = (current, pageSize) => {
-    return RestaurantList.slice((current - 1) * pageSize, current * pageSize);
-  };
-
-  const PaginationChange = (page, pageSize) => {
-    setCurrent(page);
-    setSize(pageSize)
-  }
-
-  const PrevNextArrow = (current, type, originalElement) => {
-    if (type === 'prev') {
-      return <button className='buttonstyle'><img src={require('../assets/img/prev.png')} alt='' /></button>;
-    }
-    if (type === 'next') {
-      return <button className='buttonstyle'><img src={require('../assets/img/next.png')} alt='' /></button>;
-    }
-    return originalElement;
-  }
-
-  //pagination code end
-
   useEffect(() => {
   }, []);
 
@@ -117,7 +82,7 @@ function Menu(props) {
         <h3>Select Restaurant</h3>
         <div className='reservationListBlock' style={{ marginTop: '50px' }}>
           <ul>
-            {getData(current, size).map((item, index) => ( 
+            {RestaurantList.map((item, index) => ( 
               <li key={index.toString()}>
                 <img src={item.picture} alt="" />
                 <h1>{item.name}
@@ -156,17 +121,6 @@ function Menu(props) {
             ))}
           </ul>
         </div>
-        <Pagination
-          className="pagination-data"
-          showTotal={(total, range) => `Showing ${range[0]}-${range[1]} of ${total}`}
-          onChange={PaginationChange}
-          total={RestaurantList.length}
-          current={current}
-          pageSize={size}
-          showSizeChanger={false}
-          itemRender={PrevNextArrow}
-          onShowSizeChange={PerPageChange}
-        />
       </div>
     </div >
   );

@@ -3,8 +3,10 @@ import {
   useNavigate,
   Link
 } from "react-router-dom";
+import RestaurantList from '../sharedComponents/RestaurantList';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Pagination from 'rc-pagination';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { addUser,loginUser } from '../redux/Actions/index';
 
@@ -43,6 +45,8 @@ function Login() {
 
   const [username, Setusername] = useState('');
   const [userpassword, Setuserpassword] = useState('');
+
+
 
 
   const signup = () =>{
@@ -106,11 +110,61 @@ const login = () =>{
 //     alert("please enter valid credential and you can not login before sign up. please before login you have to sign up :( ");
 //   }
 // }
+
+// const [menuList, SetmenuList] = useState(false);
+
+// const showMenu = (item) =>{
+//   if(menuList == item.id){
+//     SetmenuList(true);
+//   }
+// }
+
+
+const [activeIndex, setActiveIndex] = useState(false);
+
+const tabClick = (index) => {
+  setActiveIndex(index);
+};
   
 
   useEffect(() => {  
     console.log(data.userAdd.userData);  
   }, [])
+
+
+  //pagination code start
+  const [perPage, setPerPage] = useState(5);
+  const [size, setSize] = useState(perPage);
+  const [current, setCurrent] = useState(1);
+
+  const PerPageChange = (value) => {
+    setSize(value);
+    const newPerPage = Math.ceil(RestaurantList.length / value);
+    if (current > newPerPage) {
+      setCurrent(newPerPage);
+    }
+  }
+
+  const getData = (current, pageSize) => {
+    return RestaurantList.slice((current - 1) * pageSize, current * pageSize);
+  };
+
+  const PaginationChange = (page, pageSize) => {
+    setCurrent(page);
+    setSize(pageSize)
+  }
+
+  const PrevNextArrow = (current, type, originalElement) => {
+    if (type === 'prev') {
+      return <button className='buttonstyle'><img src={require('../assets/img/prev.png')} alt='' /></button>;
+    }
+    if (type === 'next') {
+      return <button className='buttonstyle'><img src={require('../assets/img/next.png')} alt='' /></button>;
+    }
+    return originalElement;
+  }
+
+  //pagination code end
 
   return (
     <div>
@@ -200,6 +254,74 @@ const login = () =>{
        </div>
        
        </div>
+
+
+
+
+
+
+
+     
+                  <div className="responsive-table">
+                  <table className='table'>
+                  <thead>
+                  <tr>
+                    <th>picture</th>
+                    <th>name</th>
+                    <th>rating</th>
+                    <th>category</th>
+                    <th>branches</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {getData(current, size).map((item, index) => (
+                      <tr key={index.toString()}>
+                         <td><img src={item.picture} alt="" /></td>
+                         <td>{item.name}</td>
+                         <td>{item.rating}</td>
+                        <td>{item.category}</td>
+                        <td>{item.branches.join(', ')}</td>
+
+                      <td><button onClick={() => tabClick(item.id)}>Open</button></td>
+                      
+                      {item.id === activeIndex && 
+                        <div>
+                        {item.menuList.map((subItem, index) => (
+                          <ul key={index.toString()}>
+                            <li><img src={subItem.itemImg} alt="" /></li>
+                            <li>{subItem.itemName}</li>
+                            <li>{subItem.itemDescription}</li>
+                            <li>{subItem.itemType}</li>
+                            <li>{subItem.itemPrice}</li>
+                          </ul>
+                           ))}
+                        </div>
+                        }
+                      </tr>
+                        ))}
+                      </tbody>
+                      </table>
+                </div>
+                <Pagination
+          className="pagination-data"
+          showTotal={(total, range) => `Showing ${range[0]}-${range[1]} of ${total}`}
+          onChange={PaginationChange}
+          total={RestaurantList.length}
+          current={current}
+          pageSize={size}
+          showSizeChanger={false}
+          itemRender={PrevNextArrow}
+          onShowSizeChange={PerPageChange}
+        />
+                  
+
+
+
+
+
+
+
 
 
       </div>

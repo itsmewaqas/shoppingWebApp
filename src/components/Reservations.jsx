@@ -8,7 +8,6 @@ import RestaurantList from '../sharedComponents/RestaurantList';
 import LocationSelect from '../sharedComponents/LocationSelect';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Pagination from 'rc-pagination';
 
 function OrderOnline(props) {
 
@@ -125,42 +124,26 @@ function OrderOnline(props) {
     }
   }
 
-  //pagination code start
-  const [perPage, setPerPage] = useState(10);
-  const [size, setSize] = useState(perPage);
-  const [current, setCurrent] = useState(1);
-
-  const PerPageChange = (value) => {
-    setSize(value);
-    const newPerPage = Math.ceil(datalist.length / value);
-    if (current > newPerPage) {
-      setCurrent(newPerPage);
-    }
-  }
-
-  const getData = (current, pageSize) => {
-    return datalist.slice((current - 1) * pageSize, current * pageSize);
-  };
-
-  const PaginationChange = (page, pageSize) => {
-    setCurrent(page);
-    setSize(pageSize)
-  }
-
-  const PrevNextArrow = (current, type, originalElement) => {
-    if (type === 'prev') {
-      return <button className='buttonstyle'><img src={require('../assets/img/prev.png')} alt='' /></button>;
-    }
-    if (type === 'next') {
-      return <button className='buttonstyle'><img src={require('../assets/img/next.png')} alt='' /></button>;
-    }
-    return originalElement;
-  }
-
-  //pagination code end
-
   useEffect(() => {
   }, [])
+
+
+  const checkListCategory = [...new Set(RestaurantList.map(x => x.category))];
+  console.log('checkListCategory', checkListCategory);
+
+  const [checkList, SetcheckList] = useState([]);
+
+  const handleChange = (e) => {
+    const { checked, value } = e.currentTarget;
+    SetcheckList(
+      prev => checked
+        ? [...prev, value]
+        : prev.filter(val => val !== value)
+    );
+  };
+
+  const newFilterdList = checkList.length > 0 ? datalist.filter(x => checkList.includes(x.category)) : datalist;
+  console.log('checkList', checkList);
 
   return (
     <div>
@@ -196,10 +179,23 @@ function OrderOnline(props) {
               })}
             </ul>
           </div>
+
+          <div style={{ clear: 'both', paddingBottom: '60px' }}>
+            {
+              checkListCategory.map((item, index) => {
+                return <label key={index.toString()}>
+                  <input type="checkbox" value={item} id="flexCheckDefault" onChange={handleChange} />{item}
+                </label>
+              })
+            }
+          </div>
+
+
+
         </div>
         <div className='reservationListBlock'>
           <ul>
-            {getData(current, size).map((em, index) => (
+            {newFilterdList.length == 0 ? datalist.map : newFilterdList.map((em, index) => (
               <li key={index.toString()}>
                 <img src={em.picture} alt="" />
                 <h1>{em.name}
@@ -214,17 +210,6 @@ function OrderOnline(props) {
             ))}
           </ul>
         </div>
-        <Pagination
-          className="pagination-data"
-          showTotal={(total, range) => `Showing ${range[0]}-${range[1]} of ${total}`}
-          onChange={PaginationChange}
-          total={datalist.length}
-          current={current}
-          pageSize={size}
-          showSizeChanger={false}
-          itemRender={PrevNextArrow}
-          onShowSizeChange={PerPageChange}
-        />
       </div>
     </div>
   );

@@ -3,26 +3,26 @@ import RestaurantList from '../sharedComponents/RestaurantList';
 
 function About() {
 
-  const checkListCategory = [...new Set(RestaurantList.map(x => x.category))];
-  console.log('checkListCategory', checkListCategory);
+  const getCategory = [...new Set(RestaurantList.map(x => x.category))];
+  console.log('getCategory', getCategory);
+
 
   const [datalist, Setdatalist] = useState(RestaurantList);
-  const [checkList, SetcheckList] = useState([]);
+  const [filtered, setFiltered] = useState([])
 
   const handleChange = (e) => {
-    const { checked, value } = e.currentTarget;
-    SetcheckList(
-      prev => checked
-        ? [...prev, value]
-        : prev.filter(val => val !== value)
-    );
+      const {value, checked} = e.target;
+      if(!filtered.includes(value) && checked){
+        setFiltered([...filtered, value]) 
+      }else{
+          setFiltered(filtered.filter(f=>f!==value))
+      }
   };
-
-  const newFilterdList = checkList.length > 0 ? datalist.filter(x => checkList.includes(x.category)) : datalist;
-  console.log('checkList', checkList);
-
-  // const filterRestaurant = checkList.length > 0 ? datalist.filter(s => checkList.includes(s.category)) : datalist;
   
+  const filterRestaurant = filtered.length > 0 ? datalist.filter(s => filtered.includes(s.category)) : datalist;
+
+  console.log('filterRestaurant',filterRestaurant);
+
   useEffect(() => {
   }, [])
 
@@ -36,9 +36,22 @@ function About() {
         <p>We realize numerous individuals love Pakistani sustenance, yet a large number of them loathe or are unconscious of the regularly
           unfortunate fixings that make run-of-the-mill Pakistani nourishment taste so great.</p>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
         <div style={{ clear: 'both', paddingBottom: '60px' }}>
           {
-            checkListCategory.map((item, index) => {
+            getCategory.map((item, index) => {
               return <label key={index.toString()}>
                 <input type="checkbox" value={item} id="flexCheckDefault" onChange={handleChange} />{item}
               </label>
@@ -46,9 +59,10 @@ function About() {
           }
         </div>
 
+
         <div className='reservationListBlock' style={{ clear: 'both' }}>
           <ul>
-            {newFilterdList.length == 0 ? datalist.map : newFilterdList.map((em, index) => (
+            {filterRestaurant.map((em, index) => (
               <li key={index.toString()}>
                 <img src={em.picture} alt="" />
                 <h1>{em.name}
@@ -63,8 +77,10 @@ function About() {
             ))}
           </ul>
         </div>
+
+
       </div>
-    </div>
+    </div >
   );
 }
 
