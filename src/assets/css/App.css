@@ -1617,8 +1617,19 @@ ul.restaurantsList li button{
 
 
 
-
-
+.listbox{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  list-style: none;
+  flex-wrap: nowrap;
+  border-radius:12px;
+  padding:0px;
+  margin: 15px 0px;
+}
+.listbox li {
+ height: 10px;
+}
 
 
 
